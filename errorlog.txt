@@ -1,0 +1,106 @@
+
+(.venv) endodl@htic:~/Wade-Archives$ python /home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py
+
+=== System Information ===
+Python version: 3.10.16 (main, Dec  4 2024, 08:53:37) [GCC 9.4.0]
+PyTorch version: 2.6.0+cu124
+CUDA version (torch): 12.4
+
+=== CUDA Information ===
+CUDA device: NVIDIA GeForce RTX 3090
+CUDA device capability: (8, 6)
+Current CUDA device: 0
+
+Using device: cuda:0
+
+=== Loading Model ===
+/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py:2059: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Could not load the custom kernel for multi-scale deformable attention: Error building extension 'MultiScaleDeformableAttention': [1/2] /usr/local/cuda-10.2/bin/nvcc --generate-dependencies-with-compile --dependency-output ms_deform_attn_cuda.cuda.o.d -DTORCH_EXTENSION_NAME=MultiScaleDeformableAttention -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/kernels/deformable_detr -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/TH -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-10.2/include -isystem /usr/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 --compiler-options '-fPIC' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -std=c++17 -c /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/kernels/deformable_detr/cuda/ms_deform_attn_cuda.cu -o ms_deform_attn_cuda.cuda.o 
+FAILED: ms_deform_attn_cuda.cuda.o 
+/usr/local/cuda-10.2/bin/nvcc --generate-dependencies-with-compile --dependency-output ms_deform_attn_cuda.cuda.o.d -DTORCH_EXTENSION_NAME=MultiScaleDeformableAttention -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/kernels/deformable_detr -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/TH -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-10.2/include -isystem /usr/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 --compiler-options '-fPIC' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -std=c++17 -c /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/kernels/deformable_detr/cuda/ms_deform_attn_cuda.cu -o ms_deform_attn_cuda.cuda.o 
+/bin/sh: 1: /usr/local/cuda-10.2/bin/nvcc: not found
+ninja: build stopped: subcommand failed.
+
+Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
+Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
+Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
+Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
+Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+
+Creating datasets...
+Total annotations: 27048
+Total images in annotations: 27048
+Number of images with annotations: 27048
+Train dataset size: 27048
+Total annotations: 4584
+Total images in annotations: 4584
+Number of images with annotations: 4584
+Val dataset size: 0
+Skipped 4584 images due to missing files
+First 5 missing image paths:
+  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/124.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/124.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/124.jpg']
+  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/12.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/12.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/12.jpg']
+  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/107.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/107.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/107.jpg']
+  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/154.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/154.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/154.jpg']
+  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/60.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/60.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/60.jpg']
+/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/training_args.py:1576: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
+  warnings.warn(
+
+Starting training...
+{'loss': 238.0603, 'grad_norm': 1185.043212890625, 'learning_rate': 0.00019985781990521328, 'epoch': 0.02}                                                                
+{'loss': 132.6805, 'grad_norm': 348.2722473144531, 'learning_rate': 0.0001993838862559242, 'epoch': 0.05}                                                                 
+{'loss': 109.8536, 'grad_norm': 302.9317932128906, 'learning_rate': 0.00019890995260663508, 'epoch': 0.07}                                                                
+{'loss': 93.1377, 'grad_norm': 157.4991455078125, 'learning_rate': 0.00019843601895734597, 'epoch': 0.09}                                                                 
+{'loss': 79.7011, 'grad_norm': 247.3613739013672, 'learning_rate': 0.00019796208530805688, 'epoch': 0.12}                                                                 
+{'loss': 71.2657, 'grad_norm': 149.6127471923828, 'learning_rate': 0.00019748815165876777, 'epoch': 0.14}                                                                 
+{'loss': 65.8376, 'grad_norm': 127.51812744140625, 'learning_rate': 0.00019701421800947868, 'epoch': 0.17}                                                                
+{'loss': 61.7723, 'grad_norm': 97.60052490234375, 'learning_rate': 0.0001965402843601896, 'epoch': 0.19}                                                                  
+{'loss': 61.7782, 'grad_norm': 225.4905548095703, 'learning_rate': 0.00019606635071090048, 'epoch': 0.21}                                                                 
+{'loss': 58.2935, 'grad_norm': 111.04235076904297, 'learning_rate': 0.00019559241706161137, 'epoch': 0.24}                                                                
+{'loss': 57.4156, 'grad_norm': 86.84600067138672, 'learning_rate': 0.00019511848341232228, 'epoch': 0.26}                                                                 
+{'loss': 59.1124, 'grad_norm': 99.94664764404297, 'learning_rate': 0.0001946445497630332, 'epoch': 0.28}                                                                  
+{'loss': 56.9066, 'grad_norm': 144.5687713623047, 'learning_rate': 0.00019417061611374408, 'epoch': 0.31}                                                                 
+{'loss': 56.3777, 'grad_norm': 130.41712951660156, 'learning_rate': 0.000193696682464455, 'epoch': 0.33}                                                                  
+{'loss': 53.1957, 'grad_norm': 117.2757797241211, 'learning_rate': 0.00019322274881516588, 'epoch': 0.35}                                                                 
+{'loss': 54.2395, 'grad_norm': 116.0688705444336, 'learning_rate': 0.0001927488151658768, 'epoch': 0.38}                                                                  
+{'loss': 51.7802, 'grad_norm': 144.28176879882812, 'learning_rate': 0.00019227488151658768, 'epoch': 0.4}                                                                 
+  4%|█████▍                                                                                                                          | 178/4220 [06:20<2:51:18,  2.54s/it]Traceback (most recent call last):
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1251, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+  File "/usr/lib/python3.10/queue.py", line 180, in get
+    self.not_empty.wait(remaining)
+  File "/usr/lib/python3.10/threading.py", line 324, in wait
+    gotit = waiter.acquire(True, timeout)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+    _error_if_any_worker_fails()
+RuntimeError: DataLoader worker (pid 49580) is killed by signal: Killed. 
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 227, in <module>
+    main()
+  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 224, in main
+    trainer.train()
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2184, in train
+    return inner_training_loop(
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2442, in _inner_training_loop
+    batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 5076, in get_batch_samples
+    batch_samples += [next(epoch_iterator)]
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/accelerate/data_loader.py", line 574, in __iter__
+    next_batch = next(dataloader_iter)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1458, in _next_data
+    idx, data = self._get_data()
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1410, in _get_data
+    success, data = self._try_get_data()
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1264, in _try_get_data
+    raise RuntimeError(
+RuntimeError: DataLoader worker (pid(s) 49580) exited unexpectedly
+  4%|█████▍                                                                                                                          | 178/4220 [06:27<2:26:38,  2.18s/it]
+(.venv) endodl@htic:~/Wade-Archives$ 
