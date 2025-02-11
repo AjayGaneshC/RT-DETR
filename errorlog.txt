@@ -1,4 +1,4 @@
- python /home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py
+python /home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py
 
 === System Information ===
 Python version: 3.10.16 (main, Dec  4 2024, 08:53:37) [GCC 9.4.0]
@@ -37,42 +37,26 @@ Train dataset size: 27048
 Total annotations: 4584
 Total images in annotations: 4584
 Number of images with annotations: 4584
-Val dataset size: 0
-Skipped 4584 images due to missing files
-First 5 missing image paths:
-  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/124.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/124.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/124.jpg']
-  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/12.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/12.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/12.jpg']
-  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/107.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/107.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/107.jpg']
-  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/154.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/154.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/154.jpg']
-  Tried: ['/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/10/60.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/Image/60.jpg', '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/60.jpg']
+Val dataset size: 4584
 /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/training_args.py:1576: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
   warnings.warn(
 
 Starting training...
-{'loss': 243.0698, 'grad_norm': 1433.3834228515625, 'learning_rate': 0.00019992899408284026, 'epoch': 0.01}                                                               
-{'loss': 152.3607, 'grad_norm': 1164.594970703125, 'learning_rate': 0.00019973964497041423, 'epoch': 0.02}                                                                
-{'loss': 124.0824, 'grad_norm': 859.6761474609375, 'learning_rate': 0.00019950295857988165, 'epoch': 0.04}                                                                
-{'loss': 113.8345, 'grad_norm': 618.4326171875, 'learning_rate': 0.00019926627218934913, 'epoch': 0.05}                                                                   
-{'loss': 106.5883, 'grad_norm': 638.6058959960938, 'learning_rate': 0.00019902958579881658, 'epoch': 0.06}                                                                
-{'loss': 102.6428, 'grad_norm': 411.2390441894531, 'learning_rate': 0.00019879289940828403, 'epoch': 0.07}                                                                
-{'loss': 98.079, 'grad_norm': 545.8130493164062, 'learning_rate': 0.00019855621301775148, 'epoch': 0.08}                                                                  
-{'loss': 97.0607, 'grad_norm': 174.49676513671875, 'learning_rate': 0.00019831952662721896, 'epoch': 0.09}                                                                
-{'loss': 91.079, 'grad_norm': 162.3531494140625, 'learning_rate': 0.00019808284023668639, 'epoch': 0.11}                                                                  
-{'loss': 84.7684, 'grad_norm': 203.6673583984375, 'learning_rate': 0.00019784615384615386, 'epoch': 0.12}                                                                 
-{'loss': 84.9602, 'grad_norm': 201.7064666748047, 'learning_rate': 0.00019760946745562132, 'epoch': 0.13}                                                                 
-{'loss': 80.2774, 'grad_norm': 165.24551391601562, 'learning_rate': 0.00019737278106508877, 'epoch': 0.14}                                                                
-{'loss': 74.5513, 'grad_norm': 125.1448745727539, 'learning_rate': 0.00019713609467455622, 'epoch': 0.15}                                                                 
-{'loss': 75.7035, 'grad_norm': 272.3617858886719, 'learning_rate': 0.00019689940828402367, 'epoch': 0.17}                                                                 
-{'loss': 71.1359, 'grad_norm': 114.69764709472656, 'learning_rate': 0.00019666272189349112, 'epoch': 0.18}                                                                
-{'loss': 72.5143, 'grad_norm': 296.09765625, 'learning_rate': 0.0001964260355029586, 'epoch': 0.19}                                                                       
-{'loss': 70.3052, 'grad_norm': 222.25357055664062, 'learning_rate': 0.00019618934911242602, 'epoch': 0.2}                                                                 
-{'loss': 71.4461, 'grad_norm': 121.35287475585938, 'learning_rate': 0.0001959526627218935, 'epoch': 0.21}                                                                 
-{'loss': 65.7218, 'grad_norm': 258.3321228027344, 'learning_rate': 0.00019571597633136095, 'epoch': 0.22}                                                                 
-{'loss': 66.8382, 'grad_norm': 266.67718505859375, 'learning_rate': 0.0001954792899408284, 'epoch': 0.24}                                                                 
-  2%|███                                                                                                                             | 206/8450 [03:30<2:40:44,  1.17s/it]Traceback (most recent call last):
-  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 227, in <module>
+{'loss': 240.9774, 'grad_norm': 1890.8160400390625, 'learning_rate': 0.00019999526627218937, 'epoch': 0.01}                                                               
+{'loss': 161.7028, 'grad_norm': 2934.188720703125, 'learning_rate': 0.0001999715976331361, 'epoch': 0.01}                                                                 
+{'loss': 142.1433, 'grad_norm': 1632.799560546875, 'learning_rate': 0.00019994792899408285, 'epoch': 0.02}                                                                
+{'loss': 119.2167, 'grad_norm': 689.2517700195312, 'learning_rate': 0.00019992426035502961, 'epoch': 0.02}                                                                
+{'loss': 109.5932, 'grad_norm': 416.5885009765625, 'learning_rate': 0.00019990059171597635, 'epoch': 0.03}                                                                
+{'loss': 108.7648, 'grad_norm': 414.0249328613281, 'learning_rate': 0.0001998769230769231, 'epoch': 0.04}                                                                 
+{'loss': 106.3387, 'grad_norm': 201.47401428222656, 'learning_rate': 0.00019985325443786983, 'epoch': 0.04}                                                               
+{'loss': 99.9387, 'grad_norm': 208.73304748535156, 'learning_rate': 0.0001998295857988166, 'epoch': 0.05}                                                                 
+{'loss': 98.432, 'grad_norm': 200.48130798339844, 'learning_rate': 0.00019980591715976334, 'epoch': 0.05}                                                                 
+{'loss': 94.85, 'grad_norm': 263.0897216796875, 'learning_rate': 0.00019978224852071005, 'epoch': 0.06}                                                                   
+{'loss': 88.765, 'grad_norm': 251.35792541503906, 'learning_rate': 0.0001997585798816568, 'epoch': 0.07}                                                                  
+  0%|▏                                                                                                                             | 119/84500 [01:10<13:41:16,  1.71it/s]Traceback (most recent call last):
+  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 237, in <module>
     main()
-  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 224, in main
+  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 234, in main
     trainer.train()
   File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2184, in train
     return inner_training_loop(
@@ -122,5 +106,31 @@ ValueError: boxes1 must be in [x0, y0, x1, y1] (corner) format, but got tensor([
 Exception in thread Thread-2 (_pin_memory_loop):
 Traceback (most recent call last):
   File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
-  2%|███                                                                                                                             | 206/8450 [03:35<2:23:50,  1.05s/it]
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/pin_memory.py", line 59, in _pin_memory_loop
+    do_one_step()
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/pin_memory.py", line 35, in do_one_step
+    r = in_queue.get(timeout=MP_STATUS_CHECK_INTERVAL)
+  File "/usr/lib/python3.10/multiprocessing/queues.py", line 122, in get
+    return _ForkingPickler.loads(res)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/multiprocessing/reductions.py", line 541, in rebuild_storage_fd
+    fd = df.detach()
+  File "/usr/lib/python3.10/multiprocessing/resource_sharer.py", line 57, in detach
+    with _resource_sharer.get_connection(self._id) as conn:
+  File "/usr/lib/python3.10/multiprocessing/resource_sharer.py", line 86, in get_connection
+    c = Client(address, authkey=process.current_process().authkey)
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 508, in Client
+    answer_challenge(c, authkey)
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 757, in answer_challenge
+    response = connection.recv_bytes(256)        # reject large message
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 216, in recv_bytes
+    buf = self._recv_bytes(maxlength)
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/usr/lib/python3.10/multiprocessing/connection.py", line 379, in _recv
+    chunk = read(handle, remaining)
+ConnectionResetError: [Errno 104] Connection reset by peer
+  0%|▏                                                                                                                             | 119/84500 [01:10<13:57:16,  1.68it/s]
 (.venv) endodl@htic:~/Wade-Archives$ 
