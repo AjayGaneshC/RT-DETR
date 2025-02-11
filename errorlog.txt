@@ -1,5 +1,4 @@
-
-(.venv) endodl@htic:~/Wade-Archives$ python /home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py
+ python /home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py
 
 === System Information ===
 Python version: 3.10.16 (main, Dec  4 2024, 08:53:37) [GCC 9.4.0]
@@ -50,57 +49,78 @@ First 5 missing image paths:
   warnings.warn(
 
 Starting training...
-{'loss': 238.0603, 'grad_norm': 1185.043212890625, 'learning_rate': 0.00019985781990521328, 'epoch': 0.02}                                                                
-{'loss': 132.6805, 'grad_norm': 348.2722473144531, 'learning_rate': 0.0001993838862559242, 'epoch': 0.05}                                                                 
-{'loss': 109.8536, 'grad_norm': 302.9317932128906, 'learning_rate': 0.00019890995260663508, 'epoch': 0.07}                                                                
-{'loss': 93.1377, 'grad_norm': 157.4991455078125, 'learning_rate': 0.00019843601895734597, 'epoch': 0.09}                                                                 
-{'loss': 79.7011, 'grad_norm': 247.3613739013672, 'learning_rate': 0.00019796208530805688, 'epoch': 0.12}                                                                 
-{'loss': 71.2657, 'grad_norm': 149.6127471923828, 'learning_rate': 0.00019748815165876777, 'epoch': 0.14}                                                                 
-{'loss': 65.8376, 'grad_norm': 127.51812744140625, 'learning_rate': 0.00019701421800947868, 'epoch': 0.17}                                                                
-{'loss': 61.7723, 'grad_norm': 97.60052490234375, 'learning_rate': 0.0001965402843601896, 'epoch': 0.19}                                                                  
-{'loss': 61.7782, 'grad_norm': 225.4905548095703, 'learning_rate': 0.00019606635071090048, 'epoch': 0.21}                                                                 
-{'loss': 58.2935, 'grad_norm': 111.04235076904297, 'learning_rate': 0.00019559241706161137, 'epoch': 0.24}                                                                
-{'loss': 57.4156, 'grad_norm': 86.84600067138672, 'learning_rate': 0.00019511848341232228, 'epoch': 0.26}                                                                 
-{'loss': 59.1124, 'grad_norm': 99.94664764404297, 'learning_rate': 0.0001946445497630332, 'epoch': 0.28}                                                                  
-{'loss': 56.9066, 'grad_norm': 144.5687713623047, 'learning_rate': 0.00019417061611374408, 'epoch': 0.31}                                                                 
-{'loss': 56.3777, 'grad_norm': 130.41712951660156, 'learning_rate': 0.000193696682464455, 'epoch': 0.33}                                                                  
-{'loss': 53.1957, 'grad_norm': 117.2757797241211, 'learning_rate': 0.00019322274881516588, 'epoch': 0.35}                                                                 
-{'loss': 54.2395, 'grad_norm': 116.0688705444336, 'learning_rate': 0.0001927488151658768, 'epoch': 0.38}                                                                  
-{'loss': 51.7802, 'grad_norm': 144.28176879882812, 'learning_rate': 0.00019227488151658768, 'epoch': 0.4}                                                                 
-  4%|█████▍                                                                                                                          | 178/4220 [06:20<2:51:18,  2.54s/it]Traceback (most recent call last):
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1251, in _try_get_data
-    data = self._data_queue.get(timeout=timeout)
-  File "/usr/lib/python3.10/queue.py", line 180, in get
-    self.not_empty.wait(remaining)
-  File "/usr/lib/python3.10/threading.py", line 324, in wait
-    gotit = waiter.acquire(True, timeout)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
-    _error_if_any_worker_fails()
-RuntimeError: DataLoader worker (pid 49580) is killed by signal: Killed. 
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
+{'loss': 243.0698, 'grad_norm': 1433.3834228515625, 'learning_rate': 0.00019992899408284026, 'epoch': 0.01}                                                               
+{'loss': 152.3607, 'grad_norm': 1164.594970703125, 'learning_rate': 0.00019973964497041423, 'epoch': 0.02}                                                                
+{'loss': 124.0824, 'grad_norm': 859.6761474609375, 'learning_rate': 0.00019950295857988165, 'epoch': 0.04}                                                                
+{'loss': 113.8345, 'grad_norm': 618.4326171875, 'learning_rate': 0.00019926627218934913, 'epoch': 0.05}                                                                   
+{'loss': 106.5883, 'grad_norm': 638.6058959960938, 'learning_rate': 0.00019902958579881658, 'epoch': 0.06}                                                                
+{'loss': 102.6428, 'grad_norm': 411.2390441894531, 'learning_rate': 0.00019879289940828403, 'epoch': 0.07}                                                                
+{'loss': 98.079, 'grad_norm': 545.8130493164062, 'learning_rate': 0.00019855621301775148, 'epoch': 0.08}                                                                  
+{'loss': 97.0607, 'grad_norm': 174.49676513671875, 'learning_rate': 0.00019831952662721896, 'epoch': 0.09}                                                                
+{'loss': 91.079, 'grad_norm': 162.3531494140625, 'learning_rate': 0.00019808284023668639, 'epoch': 0.11}                                                                  
+{'loss': 84.7684, 'grad_norm': 203.6673583984375, 'learning_rate': 0.00019784615384615386, 'epoch': 0.12}                                                                 
+{'loss': 84.9602, 'grad_norm': 201.7064666748047, 'learning_rate': 0.00019760946745562132, 'epoch': 0.13}                                                                 
+{'loss': 80.2774, 'grad_norm': 165.24551391601562, 'learning_rate': 0.00019737278106508877, 'epoch': 0.14}                                                                
+{'loss': 74.5513, 'grad_norm': 125.1448745727539, 'learning_rate': 0.00019713609467455622, 'epoch': 0.15}                                                                 
+{'loss': 75.7035, 'grad_norm': 272.3617858886719, 'learning_rate': 0.00019689940828402367, 'epoch': 0.17}                                                                 
+{'loss': 71.1359, 'grad_norm': 114.69764709472656, 'learning_rate': 0.00019666272189349112, 'epoch': 0.18}                                                                
+{'loss': 72.5143, 'grad_norm': 296.09765625, 'learning_rate': 0.0001964260355029586, 'epoch': 0.19}                                                                       
+{'loss': 70.3052, 'grad_norm': 222.25357055664062, 'learning_rate': 0.00019618934911242602, 'epoch': 0.2}                                                                 
+{'loss': 71.4461, 'grad_norm': 121.35287475585938, 'learning_rate': 0.0001959526627218935, 'epoch': 0.21}                                                                 
+{'loss': 65.7218, 'grad_norm': 258.3321228027344, 'learning_rate': 0.00019571597633136095, 'epoch': 0.22}                                                                 
+{'loss': 66.8382, 'grad_norm': 266.67718505859375, 'learning_rate': 0.0001954792899408284, 'epoch': 0.24}                                                                 
+  2%|███                                                                                                                             | 206/8450 [03:30<2:40:44,  1.17s/it]Traceback (most recent call last):
   File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 227, in <module>
     main()
   File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 224, in main
     trainer.train()
   File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2184, in train
     return inner_training_loop(
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2442, in _inner_training_loop
-    batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 5076, in get_batch_samples
-    batch_samples += [next(epoch_iterator)]
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/accelerate/data_loader.py", line 574, in __iter__
-    next_batch = next(dataloader_iter)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 708, in __next__
-    data = self._next_data()
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1458, in _next_data
-    idx, data = self._get_data()
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1410, in _get_data
-    success, data = self._try_get_data()
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1264, in _try_get_data
-    raise RuntimeError(
-RuntimeError: DataLoader worker (pid(s) 49580) exited unexpectedly
-  4%|█████▍                                                                                                                          | 178/4220 [06:27<2:26:38,  2.18s/it]
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2490, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 3598, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 3659, in compute_loss
+    outputs = model(**inputs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/accelerate/utils/operations.py", line 819, in forward
+    return model_forward(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/accelerate/utils/operations.py", line 807, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 44, in decorate_autocast
+    return func(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/models/rt_detr_v2/modeling_rt_detr_v2.py", line 2076, in forward
+    loss, loss_dict, auxiliary_outputs = self.loss_function(
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/loss/loss_rt_detr.py", line 468, in RTDetrForObjectDetectionLoss
+    loss_dict = criterion(outputs_loss, labels)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/loss/loss_rt_detr.py", line 384, in forward
+    indices = self.matcher(outputs_without_aux, targets)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/loss/loss_rt_detr.py", line 116, in forward
+    giou_cost = -generalized_box_iou(center_to_corners_format(out_bbox), center_to_corners_format(target_bbox))
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/loss/loss_for_object_detection.py", line 418, in generalized_box_iou
+    raise ValueError(f"boxes1 must be in [x0, y0, x1, y1] (corner) format, but got {boxes1}")
+ValueError: boxes1 must be in [x0, y0, x1, y1] (corner) format, but got tensor([[nan, nan, nan, nan],
+        [nan, nan, nan, nan],
+        [nan, nan, nan, nan],
+        ...,
+        [nan, nan, nan, nan],
+        [nan, nan, nan, nan],
+        [nan, nan, nan, nan]], device='cuda:0')
+Exception in thread Thread-2 (_pin_memory_loop):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+  2%|███                                                                                                                             | 206/8450 [03:35<2:23:50,  1.05s/it]
 (.venv) endodl@htic:~/Wade-Archives$ 
