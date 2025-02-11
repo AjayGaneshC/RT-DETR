@@ -43,20 +43,30 @@ class PolypDataset(Dataset):
         for img_id in self.image_to_annotations.keys():
             img_info = next(img for img in self.annotations['images'] if img['id'] == img_id)
             
-            # Try all possible paths
-            if self.train:
-                paths_to_try = [
-                    os.path.join(self.image_dir, 'Image', img_info['file_name']),
-                    os.path.join(self.image_dir, img_info['file_name'])
-                ]
-            else:
-                # For validation, try deeper directory structure
-                paths_to_try = [
-                    os.path.join(self.image_dir, 'Image', '10', img_info['file_name']),
-                    os.path.join(self.image_dir, 'Image', img_info['file_name']),
-                    os.path.join(self.image_dir, img_info['file_name'])
-                ]
-                
+            # Comprehensive path resolution strategy
+            possible_base_dirs = [
+                os.path.join(self.image_dir, 'Image'),  # Primary image directory
+            ]
+            
+            # For validation, add numbered subdirectories
+            if not self.train:
+                possible_base_dirs.extend([
+                    os.path.join(self.image_dir, 'Image', str(subdir))
+                    for subdir in range(1, 18)  # Subdirectories 1-17
+                ])
+            
+            # Possible paths to try
+            paths_to_try = [
+                os.path.join(base_dir, img_info['file_name'])
+                for base_dir in possible_base_dirs
+            ]
+            
+            # Additional variations
+            paths_to_try.extend([
+                os.path.join(base_dir, f'Image_{img_info["file_name"]}')
+                for base_dir in possible_base_dirs
+            ])
+            
             image_exists = False
             valid_path = None
             for path in paths_to_try:
@@ -77,6 +87,10 @@ class PolypDataset(Dataset):
             print("First 5 missing image paths:")
             for paths in missing_paths[:5]:
                 print(f"  Tried: {paths}")
+        
+        # Raise an error if no images are found
+        if len(self.valid_image_ids) == 0:
+            raise ValueError(f"No images found in {self.image_dir}. Check your dataset paths.")
     
     def __len__(self):
         return len(self.valid_image_ids)
