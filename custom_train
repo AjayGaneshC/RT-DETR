@@ -1,0 +1,198 @@
+import os
+import json
+import torch
+import numpy as np
+import albumentations as A
+from PIL import Image
+from torch.utils.data import Dataset, DataLoader
+from transformers import (
+    AutoImageProcessor, 
+    AutoModelForObjectDetection, 
+    TrainingArguments, 
+    Trainer
+)
+import torchmetrics
+from dataclasses import dataclass
+from transformers.image_transforms import center_to_corners_format
+
+# Configuration
+checkpoint = "PekingU/rtdetr_v2_r50vd"
+image_size = 480
+output_dir = "rtdetr_polyps_finetune"
+
+# Manually load JSON dataset for PolypsSet
+def load_polyps_dataset(train_json, val_json, test_json):
+    # Load COCO-style JSON annotations
+    with open(train_json, 'r') as f:
+        train_data = json.load(f)
+    with open(val_json, 'r') as f:
+        val_data = json.load(f)
+    with open(test_json, 'r') as f:
+        test_data = json.load(f)
+    
+    return {
+        'train': train_data,
+        'validation': val_data,
+        'test': test_data
+    }
+
+# Load dataset
+dataset = load_polyps_dataset(
+    "/home/htic/Wade-Archives/PolypsSet/train2019/train2019_annotation.json",
+    "/home/htic/Wade-Archives/PolypsSet/val2019/val2019_annotation.json",
+    "/home/htic/Wade-Archives/PolypsSet/test2019/test2019_annotation.json"
+)
+
+# Create label mapping
+label2id = {cat['name']: cat['id'] for cat in dataset['train']['categories']}
+id2label = {cat['id']: cat['name'] for cat in dataset['train']['categories']}
+
+# Data Augmentation
+train_augmentation = A.Compose([
+    A.HorizontalFlip(p=0.5),
+    A.RandomBrightnessContrast(p=0.2),
+    A.RandomScale(scale_limit=0.2, p=0.5),
+    A.Rotate(limit=30, p=0.5),
+])
+
+# Image Processor
+image_processor = AutoImageProcessor.from_pretrained(
+    checkpoint,
+    do_resize=True,
+    size={'height': image_size, 'width': image_size},
+    resample=Image.Resampling.BILINEAR,
+    do_normalize=True,
+    image_mean=[0.485, 0.456, 0.406],  # Standard ImageNet mean
+    image_std=[0.229, 0.224, 0.225]    # Standard ImageNet std
+)
+
+class PolypsDataset(torch.utils.data.Dataset):
+    def __init__(self, dataset, image_processor, transform=None, base_image_dir=None):
+        self.dataset = dataset
+        self.image_processor = image_processor
+        self.transform = transform
+        self.base_image_dir = base_image_dir or "/home/htic/Wade-Archives/PolypsSet/train2019/Image"
+        
+        # Prepare images and annotations
+        self.images = self.dataset['images']
+        self.annotations = self.dataset['annotations']
+        
+        # Create a mapping of image_id to annotations
+        self.image_annotations = {}
+        for ann in self.annotations:
+            image_id = ann.get('image_id')
+            if image_id not in self.image_annotations:
+                self.image_annotations[image_id] = []
+            self.image_annotations[image_id].append(ann)
+    
+    def __len__(self):
+        return len(self.images)
+    
+    def __getitem__(self, idx):
+        image_info = self.images[idx]
+        image_id = image_info['id']
+        image_path = os.path.join(self.base_image_dir, image_info['file_name'])
+        
+        # Load and preprocess image
+        image = Image.open(image_path).convert('RGB')
+        
+        # Apply transformations if specified
+        if self.transform:
+            image = np.array(image)
+            image = self.transform(image=image)['image']
+            image = Image.fromarray(image)
+        
+        # Prepare COCO-compatible annotations
+        annotations = []
+        if image_id in self.image_annotations:
+            for ann in self.image_annotations[image_id]:
+                # Create a COCO-style annotation
+                coco_ann = {
+                    'image_id': image_id,
+                    'category_id': label2id.get(ann.get('category_name', 'polyp'), 0),
+                    'bbox': ann['bbox'],  # COCO format: [x, y, width, height]
+                    'area': ann['bbox'][2] * ann['bbox'][3],  # width * height
+                    'iscrowd': 0
+                }
+                annotations.append(coco_ann)
+        
+        # Prepare for model input
+        encoding = self.image_processor(
+            images=image, 
+            annotations=[{
+                'image_id': image_id,
+                'annotations': annotations
+            }], 
+            return_tensors="pt",
+            do_resize=True,
+            size=image_size
+        )
+        
+        return encoding
+
+# Collate Function
+def collate_fn(batch):
+    pixel_values = torch.stack([item['pixel_values'][0] for item in batch])
+    labels = [item['labels'][0] for item in batch]
+    
+    return {
+        'pixel_values': pixel_values,
+        'labels': labels
+    }
+
+# Compute Metrics Function
+def compute_metrics(eval_pred):
+    # Placeholder metrics computation
+    # You should replace this with more sophisticated metrics specific to object detection
+    return {}
+
+# Model
+model = AutoModelForObjectDetection.from_pretrained(
+    checkpoint,
+    id2label=id2label,
+    label2id=label2id,
+    ignore_mismatched_sizes=True
+)
+
+# Training Arguments
+training_args = TrainingArguments(
+    output_dir=output_dir,
+    num_train_epochs=10,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
+    learning_rate=5e-5,
+    weight_decay=0.01,
+    evaluation_strategy="epoch",
+    save_strategy="epoch",
+    push_to_hub=False,
+)
+
+# Prepare Datasets
+train_dataset = PolypsDataset(
+    dataset['train'], 
+    image_processor, 
+    transform=train_augmentation,
+    base_image_dir="/home/htic/Wade-Archives/PolypsSet/train2019/Image"
+)
+
+val_dataset = PolypsDataset(
+    dataset['validation'], 
+    image_processor, 
+    base_image_dir="/home/htic/Wade-Archives/PolypsSet/val2019/Image"
+)
+
+# Trainer
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=train_dataset,
+    eval_dataset=val_dataset,
+    data_collator=collate_fn,
+    compute_metrics=compute_metrics
+)
+
+# Train the model
+trainer.train()
+
+# Optional: Save the model
+trainer.save_model(output_dir)
