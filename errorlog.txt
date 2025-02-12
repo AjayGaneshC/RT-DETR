@@ -1,18 +1,5 @@
-python /home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py
-
-=== System Information ===
-Python version: 3.10.16 (main, Dec  4 2024, 08:53:37) [GCC 9.4.0]
-PyTorch version: 2.6.0+cu124
-CUDA version (torch): 12.4
-
-=== CUDA Information ===
-CUDA device: NVIDIA GeForce RTX 3090
-CUDA device capability: (8, 6)
-Current CUDA device: 0
-
-Using device: cuda:0
-
-=== Loading Model ===
+/home/endodl/Wade-Archives/.venv/bin/python /home/endodl/Wade-Archives/PolypsSet/train_rtdetr.py
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
 /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py:2059: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
 If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
   warnings.warn(
@@ -27,110 +14,55 @@ Could not load the custom kernel for multi-scale deformable attention: /home/end
 Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
 Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
 Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
-Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
-
-Creating datasets...
-Total annotations: 27048
-Total images in annotations: 27048
-Number of images with annotations: 27048
-Train dataset size: 27048
-Total annotations: 4584
-Total images in annotations: 4584
-Number of images with annotations: 4584
-Val dataset size: 4584
+Some weights of RTDetrV2ForObjectDetection were not initialized from the model checkpoint at PekingU/rtdetr_v2_r50vd and are newly initialized because the shapes did not match:
+- model.decoder.class_embed.0.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
+- model.decoder.class_embed.0.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
+- model.decoder.class_embed.1.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
+- model.decoder.class_embed.1.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
+- model.decoder.class_embed.2.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
+- model.decoder.class_embed.2.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
+- model.decoder.class_embed.3.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
+- model.decoder.class_embed.3.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
+- model.decoder.class_embed.4.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
+- model.decoder.class_embed.4.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
+- model.decoder.class_embed.5.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
+- model.decoder.class_embed.5.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
+- model.denoising_class_embed.weight: found shape torch.Size([81, 256]) in the checkpoint and torch.Size([3, 256]) in the model instantiated
+- model.enc_score_head.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
+- model.enc_score_head.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/training_args.py:1576: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
   warnings.warn(
-
-Starting training...
-{'loss': 240.9774, 'grad_norm': 1890.8160400390625, 'learning_rate': 0.00019999526627218937, 'epoch': 0.01}                                                               
-{'loss': 161.7028, 'grad_norm': 2934.188720703125, 'learning_rate': 0.0001999715976331361, 'epoch': 0.01}                                                                 
-{'loss': 142.1433, 'grad_norm': 1632.799560546875, 'learning_rate': 0.00019994792899408285, 'epoch': 0.02}                                                                
-{'loss': 119.2167, 'grad_norm': 689.2517700195312, 'learning_rate': 0.00019992426035502961, 'epoch': 0.02}                                                                
-{'loss': 109.5932, 'grad_norm': 416.5885009765625, 'learning_rate': 0.00019990059171597635, 'epoch': 0.03}                                                                
-{'loss': 108.7648, 'grad_norm': 414.0249328613281, 'learning_rate': 0.0001998769230769231, 'epoch': 0.04}                                                                 
-{'loss': 106.3387, 'grad_norm': 201.47401428222656, 'learning_rate': 0.00019985325443786983, 'epoch': 0.04}                                                               
-{'loss': 99.9387, 'grad_norm': 208.73304748535156, 'learning_rate': 0.0001998295857988166, 'epoch': 0.05}                                                                 
-{'loss': 98.432, 'grad_norm': 200.48130798339844, 'learning_rate': 0.00019980591715976334, 'epoch': 0.05}                                                                 
-{'loss': 94.85, 'grad_norm': 263.0897216796875, 'learning_rate': 0.00019978224852071005, 'epoch': 0.06}                                                                   
-{'loss': 88.765, 'grad_norm': 251.35792541503906, 'learning_rate': 0.0001997585798816568, 'epoch': 0.07}                                                                  
-  0%|▏                                                                                                                             | 119/84500 [01:10<13:41:16,  1.71it/s]Traceback (most recent call last):
-  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 237, in <module>
-    main()
-  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr_polyps.py", line 234, in main
+{'loss': 71.012, 'grad_norm': 66.1968002319336, 'learning_rate': 4.805447470817121e-05, 'epoch': 0.39}                                                                    
+{'loss': 22.75, 'grad_norm': 76.56961059570312, 'learning_rate': 4.610894941634242e-05, 'epoch': 0.78}                                                                    
+ 10%|████████████▊                                                                                                                   | 1285/12850 [03:28<30:01,  6.42it/s]Traceback (most recent call last):
+  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr.py", line 195, in <module>
     trainer.train()
   File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2184, in train
     return inner_training_loop(
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2490, in _inner_training_loop
-    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 3598, in training_step
-    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 3659, in compute_loss
-    outputs = model(**inputs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/accelerate/utils/operations.py", line 819, in forward
-    return model_forward(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/accelerate/utils/operations.py", line 807, in __call__
-    return convert_to_fp32(self.model_forward(*args, **kwargs))
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 44, in decorate_autocast
-    return func(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/models/rt_detr_v2/modeling_rt_detr_v2.py", line 2076, in forward
-    loss, loss_dict, auxiliary_outputs = self.loss_function(
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/loss/loss_rt_detr.py", line 468, in RTDetrForObjectDetectionLoss
-    loss_dict = criterion(outputs_loss, labels)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/loss/loss_rt_detr.py", line 384, in forward
-    indices = self.matcher(outputs_without_aux, targets)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
-    return func(*args, **kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/loss/loss_rt_detr.py", line 116, in forward
-    giou_cost = -generalized_box_iou(center_to_corners_format(out_bbox), center_to_corners_format(target_bbox))
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/loss/loss_for_object_detection.py", line 418, in generalized_box_iou
-    raise ValueError(f"boxes1 must be in [x0, y0, x1, y1] (corner) format, but got {boxes1}")
-ValueError: boxes1 must be in [x0, y0, x1, y1] (corner) format, but got tensor([[nan, nan, nan, nan],
-        [nan, nan, nan, nan],
-        [nan, nan, nan, nan],
-        ...,
-        [nan, nan, nan, nan],
-        [nan, nan, nan, nan],
-        [nan, nan, nan, nan]], device='cuda:0')
-Exception in thread Thread-2 (_pin_memory_loop):
-Traceback (most recent call last):
-  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
-    self.run()
-  File "/usr/lib/python3.10/threading.py", line 953, in run
-    self._target(*self._args, **self._kwargs)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/pin_memory.py", line 59, in _pin_memory_loop
-    do_one_step()
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/pin_memory.py", line 35, in do_one_step
-    r = in_queue.get(timeout=MP_STATUS_CHECK_INTERVAL)
-  File "/usr/lib/python3.10/multiprocessing/queues.py", line 122, in get
-    return _ForkingPickler.loads(res)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/multiprocessing/reductions.py", line 541, in rebuild_storage_fd
-    fd = df.detach()
-  File "/usr/lib/python3.10/multiprocessing/resource_sharer.py", line 57, in detach
-    with _resource_sharer.get_connection(self._id) as conn:
-  File "/usr/lib/python3.10/multiprocessing/resource_sharer.py", line 86, in get_connection
-    c = Client(address, authkey=process.current_process().authkey)
-  File "/usr/lib/python3.10/multiprocessing/connection.py", line 508, in Client
-    answer_challenge(c, authkey)
-  File "/usr/lib/python3.10/multiprocessing/connection.py", line 757, in answer_challenge
-    response = connection.recv_bytes(256)        # reject large message
-  File "/usr/lib/python3.10/multiprocessing/connection.py", line 216, in recv_bytes
-    buf = self._recv_bytes(maxlength)
-  File "/usr/lib/python3.10/multiprocessing/connection.py", line 414, in _recv_bytes
-    buf = self._recv(4)
-  File "/usr/lib/python3.10/multiprocessing/connection.py", line 379, in _recv
-    chunk = read(handle, remaining)
-ConnectionResetError: [Errno 104] Connection reset by peer
-  0%|▏                                                                                                                             | 119/84500 [01:10<13:57:16,  1.68it/s]
-(.venv) endodl@htic:~/Wade-Archives$ 
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2581, in _inner_training_loop
+    self._maybe_log_save_evaluate(tr_loss, grad_norm, model, trial, epoch, ignore_keys_for_eval, start_time)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 3027, in _maybe_log_save_evaluate
+    metrics = self._evaluate(trial, ignore_keys_for_eval)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2981, in _evaluate
+    metrics = self.evaluate(ignore_keys=ignore_keys_for_eval)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 4001, in evaluate
+    output = eval_loop(
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 4185, in evaluation_loop
+    for step, inputs in enumerate(dataloader):
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/accelerate/data_loader.py", line 563, in __iter__
+    current_batch = next(dataloader_iter)
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 764, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr.py", line 97, in __getitem__
+    image = Image.open(image_path).convert('RGB')
+  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/PIL/Image.py", line 3465, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/26334.jpg'
+ 10%|█         | 1285/12850 [03:28<31:18, 
