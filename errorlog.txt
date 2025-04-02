@@ -1,68 +1,76 @@
-/home/endodl/Wade-Archives/.venv/bin/python /home/endodl/Wade-Archives/PolypsSet/train_rtdetr.py
-Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
-/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/cpp_extension.py:2059: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
-If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
-  warnings.warn(
-Could not load the custom kernel for multi-scale deformable attention: Error building extension 'MultiScaleDeformableAttention': [1/2] /usr/local/cuda-10.2/bin/nvcc --generate-dependencies-with-compile --dependency-output ms_deform_attn_cuda.cuda.o.d -DTORCH_EXTENSION_NAME=MultiScaleDeformableAttention -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/kernels/deformable_detr -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/TH -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-10.2/include -isystem /usr/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 --compiler-options '-fPIC' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -std=c++17 -c /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/kernels/deformable_detr/cuda/ms_deform_attn_cuda.cu -o ms_deform_attn_cuda.cuda.o 
-FAILED: ms_deform_attn_cuda.cuda.o 
-/usr/local/cuda-10.2/bin/nvcc --generate-dependencies-with-compile --dependency-output ms_deform_attn_cuda.cuda.o.d -DTORCH_EXTENSION_NAME=MultiScaleDeformableAttention -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -I/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/kernels/deformable_detr -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/TH -isystem /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/include/THC -isystem /usr/local/cuda-10.2/include -isystem /usr/include/python3.10 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 --compiler-options '-fPIC' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -std=c++17 -c /home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/kernels/deformable_detr/cuda/ms_deform_attn_cuda.cu -o ms_deform_attn_cuda.cuda.o 
-/bin/sh: 1: /usr/local/cuda-10.2/bin/nvcc: not found
-ninja: build stopped: subcommand failed.
+(CrackedEngineer) endoai@endoai:~/PHASE-1/Ajay/CrackedEngineer$ python3  Code/main.py --custom_model --data_path /home/endoai/PHASE-1/Ajay/CrackedEngineer/data --batch_size 16 --epoc
+hs 25 --annotation_type auto
+Training custom model from scratch...
+Using device: cuda
+Created custom artery detector model from scratch
+Loading datasets from /home/endoai/PHASE-1/Ajay/CrackedEngineer/data
+Initializing train dataset...
+Found 70195 image files in train set
 
-Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
-Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
-Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
-Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
-Could not load the custom kernel for multi-scale deformable attention: /home/endodl/.cache/torch_extensions/py310_cu124/MultiScaleDeformableAttention/MultiScaleDeformableAttention.so: cannot open shared object file: No such file or directory
-Some weights of RTDetrV2ForObjectDetection were not initialized from the model checkpoint at PekingU/rtdetr_v2_r50vd and are newly initialized because the shapes did not match:
-- model.decoder.class_embed.0.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
-- model.decoder.class_embed.0.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
-- model.decoder.class_embed.1.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
-- model.decoder.class_embed.1.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
-- model.decoder.class_embed.2.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
-- model.decoder.class_embed.2.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
-- model.decoder.class_embed.3.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
-- model.decoder.class_embed.3.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
-- model.decoder.class_embed.4.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
-- model.decoder.class_embed.4.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
-- model.decoder.class_embed.5.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
-- model.decoder.class_embed.5.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
-- model.denoising_class_embed.weight: found shape torch.Size([81, 256]) in the checkpoint and torch.Size([3, 256]) in the model instantiated
-- model.enc_score_head.bias: found shape torch.Size([80]) in the checkpoint and torch.Size([2]) in the model instantiated
-- model.enc_score_head.weight: found shape torch.Size([80, 256]) in the checkpoint and torch.Size([2, 256]) in the model instantiated
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
-/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/training_args.py:1576: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
-  warnings.warn(
-{'loss': 71.012, 'grad_norm': 66.1968002319336, 'learning_rate': 4.805447470817121e-05, 'epoch': 0.39}                                                                    
-{'loss': 22.75, 'grad_norm': 76.56961059570312, 'learning_rate': 4.610894941634242e-05, 'epoch': 0.78}                                                                    
- 10%|████████████▊                                                                                                                   | 1285/12850 [03:28<30:01,  6.42it/s]Traceback (most recent call last):
-  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr.py", line 195, in <module>
-    trainer.train()
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2184, in train
-    return inner_training_loop(
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2581, in _inner_training_loop
-    self._maybe_log_save_evaluate(tr_loss, grad_norm, model, trial, epoch, ignore_keys_for_eval, start_time)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 3027, in _maybe_log_save_evaluate
-    metrics = self._evaluate(trial, ignore_keys_for_eval)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 2981, in _evaluate
-    metrics = self.evaluate(ignore_keys=ignore_keys_for_eval)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 4001, in evaluate
-    output = eval_loop(
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 4185, in evaluation_loop
-    for step, inputs in enumerate(dataloader):
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/accelerate/data_loader.py", line 563, in __iter__
-    current_batch = next(dataloader_iter)
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 708, in __next__
-    data = self._next_data()
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 764, in _next_data
-    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
-    data = [self.dataset[idx] for idx in possibly_batched_index]
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
-    data = [self.dataset[idx] for idx in possibly_batched_index]
-  File "/home/endodl/Wade-Archives/PolypsSet/train_rtdetr.py", line 97, in __getitem__
-    image = Image.open(image_path).convert('RGB')
-  File "/home/endodl/Wade-Archives/.venv/lib/python3.10/site-packages/PIL/Image.py", line 3465, in open
-    fp = builtins.open(filename, "rb")
-FileNotFoundError: [Errno 2] No such file or directory: '/home/endodl/Wade-Archives/PolypsSet/val2019/Image/26334.jpg'
- 10%|█         | 1285/12850 [03:28<31:18, 
+Annotation statistics:
+  Valid annotations: 40068
+  NLRAW images: 30127
+  Total samples: 70195
+Found 70195 samples for train set
+Initializing val dataset...
+Found 4129 image files in val set
+
+Annotation statistics:
+  Valid annotations: 2363
+  NLRAW images: 1766
+  Total samples: 4129
+Found 4129 samples for val set
+Training set size: 70195
+Validation set size: 4129
+Starting training for 25 epochs
+Epoch 1/25:   0%|                                                                                                                                            | 0/4388 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 85, in <module>
+    main() 
+    ^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 80, in main
+    train_custom_model(config)
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 153, in train_custom_model
+    pred_locs, pred_conf = model(images)
+                           ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 119, in forward
+    features = self.feature_extractor(x)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+           ^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [64, 32, 1, 1], expected input[16, 64, 32, 256] to have 32 channels, but got 64 channels instead
+(CrackedEngineer) endoai@endoai:~/PHASE-1/Ajay/CrackedEngineer$ 
