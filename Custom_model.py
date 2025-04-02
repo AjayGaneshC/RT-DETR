@@ -6,149 +6,75 @@ class CustomArteryDetector(nn.Module):
     def __init__(self):
         super().__init__()
         
-        # Feature extraction layers - from scratch, no pretrained weights
-        self.feature_extractor = nn.Sequential(
-            # Initial convolution block - maintain original channel size
-            nn.Conv2d(1, 32, kernel_size=7, stride=2, padding=3),  # Using 1 channel for grayscale input
+        # Initial feature extraction
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(1, 32, kernel_size=3, padding=1),
             nn.BatchNorm2d(32),
             nn.ReLU(inplace=True),
-            nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+            nn.MaxPool2d(kernel_size=2, stride=2)
         )
         
-        # Simple convolutional architecture with controlled dimensionality
-        self.conv1 = nn.Sequential(
+        # Second convolutional block
+        self.conv2 = nn.Sequential(
             nn.Conv2d(32, 64, kernel_size=3, padding=1),
             nn.BatchNorm2d(64),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2)
         )
         
-        # Special vertical structure detector for artery detection
-        self.vertical_detector = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=(7, 3), padding=(3, 1)),  # Tall kernel to detect vertical structures
-            nn.BatchNorm2d(64),
-            nn.ReLU(inplace=True)
-        )
-        
-        self.conv2 = nn.Sequential(
+        # Third convolutional block
+        self.conv3 = nn.Sequential(
             nn.Conv2d(64, 128, kernel_size=3, padding=1),
             nn.BatchNorm2d(128),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2)
         )
         
-        self.conv3 = nn.Sequential(
-            nn.Conv2d(128, 256, kernel_size=3, padding=1),
-            nn.BatchNorm2d(256),
-            nn.ReLU(inplace=True),
-            nn.MaxPool2d(kernel_size=2, stride=2)
+        # Vertical feature detector for artery detection
+        self.vertical_detector = nn.Sequential(
+            nn.Conv2d(128, 128, kernel_size=(7, 3), padding=(3, 1)),
+            nn.BatchNorm2d(128),
+            nn.ReLU(inplace=True)
         )
         
-        # Attention mechanism designed to work with 256 channels
-        self.attention = nn.Sequential(
-            nn.Conv2d(256, 256, kernel_size=1),
-            nn.BatchNorm2d(256),
+        # Global average pooling
+        self.global_pool = nn.AdaptiveAvgPool2d(1)
+        
+        # Location prediction head (x, y, width)
+        self.loc_head = nn.Sequential(
+            nn.Linear(128, 64),
+            nn.ReLU(inplace=True),
+            nn.Linear(64, 3)  # Output 3 values: x, y, width
+        )
+        
+        # Confidence prediction head
+        self.conf_head = nn.Sequential(
+            nn.Linear(128, 64),
+            nn.ReLU(inplace=True),
+            nn.Linear(64, 1),
             nn.Sigmoid()
         )
         
-        # Final feature pooling
-        self.pool = nn.AdaptiveAvgPool2d((1, 4))
-        
-        # Confidence head - determines if artery is present
-        self.confidence_head = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(256 * 4, 512),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.5),
-            nn.Linear(512, 256),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.3),
-            nn.Linear(256, 1),
-            nn.Sigmoid()
-        )
-        
-        # Location head - predicts bounding box coordinates
-        self.location_head = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(256 * 4, 512),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.3),
-            nn.Linear(512, 256),
-            nn.ReLU(inplace=True),
-            nn.Linear(256, 4)  # x, y, w, h
-        )
-        
-        # Initialize weights
-        self._initialize_weights()
-    
-    def _make_attention_block(self, channels):
-        """Create an attention mechanism to focus on relevant features"""
-        return nn.Sequential(
-            # Spatial attention
-            nn.Conv2d(channels, channels, kernel_size=1),
-            nn.BatchNorm2d(channels),
-            nn.Sigmoid()
-        )
-    
-    def _initialize_weights(self):
-        """Initialize weights with careful initialization for better convergence"""
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-                if m.bias is not None:
-                    nn.init.constant_(m.bias, 0)
-            elif isinstance(m, nn.BatchNorm2d):
-                nn.init.constant_(m.weight, 1)
-                nn.init.constant_(m.bias, 0)
-            elif isinstance(m, nn.Linear):
-                nn.init.normal_(m.weight, 0, 0.01)
-                nn.init.constant_(m.bias, 0)
-    
     def forward(self, x):
-        # Print input shape for debugging
-        # print(f"Input shape: {x.shape}")
-        
-        # Extract features
-        x = self.feature_extractor(x)
-        # print(f"After feature_extractor: {x.shape}")
-        
-        # Apply convolutional blocks
+        # Feature extraction
         x = self.conv1(x)
-        # print(f"After conv1: {x.shape}")
-        
-        x = self.vertical_detector(x)
-        # print(f"After vertical_detector: {x.shape}")
-        
         x = self.conv2(x)
-        # print(f"After conv2: {x.shape}")
-        
         x = self.conv3(x)
-        # print(f"After conv3: {x.shape}")
         
-        # Apply attention mechanism
-        attn = self.attention(x)
-        x = x * attn
-        # print(f"After attention: {x.shape}")
+        # Vertical feature detection
+        x = self.vertical_detector(x)
         
         # Global pooling
-        features = self.pool(x)
-        # print(f"After pooling: {features.shape}")
+        x = self.global_pool(x)
+        x = x.view(x.size(0), -1)
         
-        # Get confidence score (artery vs non-artery)
-        confidence = self.confidence_head(features)
+        # Predict locations (x, y, width)
+        loc = self.loc_head(x)
         
-        # Get location predictions
-        raw_locations = self.location_head(features)
+        # Predict confidence
+        conf = self.conf_head(x)
         
-        # Transform location predictions to appropriate ranges
-        locations = torch.cat([
-            torch.sigmoid(raw_locations[:, 0:1]),  # x (normalized)
-            torch.sigmoid(raw_locations[:, 1:2]),  # y (normalized)
-            torch.sigmoid(raw_locations[:, 2:3]),  # width (normalized)
-            torch.sigmoid(raw_locations[:, 3:4])   # height (normalized)
-        ], dim=1)
-        
-        return locations, confidence
+        return loc, conf
 
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels, out_channels):
