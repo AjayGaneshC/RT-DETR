@@ -23,6 +23,13 @@ class CustomArteryDetector(nn.Module):
             nn.MaxPool2d(kernel_size=2, stride=2)
         )
         
+        # Special vertical structure detector for artery detection
+        self.vertical_detector = nn.Sequential(
+            nn.Conv2d(64, 64, kernel_size=(7, 3), padding=(3, 1)),  # Tall kernel to detect vertical structures
+            nn.BatchNorm2d(64),
+            nn.ReLU(inplace=True)
+        )
+        
         self.conv2 = nn.Sequential(
             nn.Conv2d(64, 128, kernel_size=3, padding=1),
             nn.BatchNorm2d(128),
@@ -108,6 +115,9 @@ class CustomArteryDetector(nn.Module):
         # Apply convolutional blocks
         x = self.conv1(x)
         # print(f"After conv1: {x.shape}")
+        
+        x = self.vertical_detector(x)
+        # print(f"After vertical_detector: {x.shape}")
         
         x = self.conv2(x)
         # print(f"After conv2: {x.shape}")
