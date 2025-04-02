@@ -8,36 +8,41 @@ class CustomArteryDetector(nn.Module):
         
         # Feature extraction layers - from scratch, no pretrained weights
         self.feature_extractor = nn.Sequential(
-            # Initial convolution block
+            # Initial convolution block - maintain original channel size
             nn.Conv2d(1, 32, kernel_size=7, stride=2, padding=3),  # Using 1 channel for grayscale input
             nn.BatchNorm2d(32),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         )
         
-        # Convolutional blocks with proper residual connections
-        self.block1 = self._make_conv_block(32, 64)
-        
-        # Specialized vertical structure detector for arteries
-        self.vert_detector = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=(7, 3), padding=(3, 1)),
+        # Simple convolutional architecture with controlled dimensionality
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
             nn.BatchNorm2d(64),
-            nn.ReLU(inplace=True)
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2)
         )
         
-        self.block2 = self._make_conv_block(64, 128)
-        
-        # Edge enhancement layer - important for artery boundaries
-        self.edge_enhance = nn.Sequential(
-            nn.Conv2d(128, 128, kernel_size=3, padding=1, groups=4),
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(64, 128, kernel_size=3, padding=1),
             nn.BatchNorm2d(128),
-            nn.ReLU(inplace=True)
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2)
         )
         
-        self.block3 = self._make_conv_block(128, 256)
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(128, 256, kernel_size=3, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
         
-        # Attention mechanism
-        self.attention = self._make_attention_block(256)
+        # Attention mechanism designed to work with 256 channels
+        self.attention = nn.Sequential(
+            nn.Conv2d(256, 256, kernel_size=1),
+            nn.BatchNorm2d(256),
+            nn.Sigmoid()
+        )
         
         # Final feature pooling
         self.pool = nn.AdaptiveAvgPool2d((1, 4))
@@ -69,21 +74,13 @@ class CustomArteryDetector(nn.Module):
         # Initialize weights
         self._initialize_weights()
     
-    def _make_conv_block(self, in_channels, out_channels):
-        """Create a convolutional block with proper residual connection"""
-        return ResidualBlock(in_channels, out_channels)
-    
     def _make_attention_block(self, channels):
         """Create an attention mechanism to focus on relevant features"""
         return nn.Sequential(
             # Spatial attention
-            nn.Conv2d(channels, 1, kernel_size=7, padding=3),
-            nn.Sigmoid(),
-            
-            # Apply attention
             nn.Conv2d(channels, channels, kernel_size=1),
             nn.BatchNorm2d(channels),
-            nn.ReLU(inplace=True)
+            nn.Sigmoid()
         )
     
     def _initialize_weights(self):
@@ -101,17 +98,31 @@ class CustomArteryDetector(nn.Module):
                 nn.init.constant_(m.bias, 0)
     
     def forward(self, x):
+        # Print input shape for debugging
+        # print(f"Input shape: {x.shape}")
+        
         # Extract features
         x = self.feature_extractor(x)
+        # print(f"After feature_extractor: {x.shape}")
         
-        # Apply convolutional blocks with residual connections
-        x = self.block1(x)
-        x = self.vert_detector(x)
-        x = self.block2(x)
-        x = self.edge_enhance(x)
-        x = self.block3(x)
-        x = self.attention(x)
+        # Apply convolutional blocks
+        x = self.conv1(x)
+        # print(f"After conv1: {x.shape}")
+        
+        x = self.conv2(x)
+        # print(f"After conv2: {x.shape}")
+        
+        x = self.conv3(x)
+        # print(f"After conv3: {x.shape}")
+        
+        # Apply attention mechanism
+        attn = self.attention(x)
+        x = x * attn
+        # print(f"After attention: {x.shape}")
+        
+        # Global pooling
         features = self.pool(x)
+        # print(f"After pooling: {features.shape}")
         
         # Get confidence score (artery vs non-artery)
         confidence = self.confidence_head(features)
