@@ -105,15 +105,8 @@ class CustomArteryLoss(nn.Module):
             reduction='sum'
         ) / (pos_mask.sum() + 1e-6)
         
-        # Height loss (usually fixed at 1.0 for arteries)
-        h_loss = F.smooth_l1_loss(
-            pred_locs[:, 3] * pos_mask,
-            target_locs[:, 3] * pos_mask,
-            reduction='sum'
-        ) / (pos_mask.sum() + 1e-6)
-        
-        # Total location loss
-        loc_loss = x_loss + y_loss + w_loss + h_loss
+        # Total location loss (only x, y, width)
+        loc_loss = x_loss + y_loss + w_loss
         
         # Final loss combining confidence and location components
         total_loss = self.conf_weight * conf_loss + self.loc_weight * loc_loss * pos_mask.mean()
