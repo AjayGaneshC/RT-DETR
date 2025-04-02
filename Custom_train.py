@@ -9,6 +9,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from dataset import ArteryDataset
 from custom_model import CustomArteryDetector
+from torchvision import transforms
 
 # Add custom dataset collate function to handle variable sized inputs
 def collate_fn(batch):
@@ -52,261 +53,195 @@ def collate_fn(batch):
     return images, target_locs, target_conf
 
 class CustomArteryLoss(nn.Module):
-    def __init__(self, loc_weight=1.0, conf_weight=2.0, conf_threshold=0.5):
+    def __init__(self):
         super().__init__()
-        self.loc_weight = loc_weight
-        self.conf_weight = conf_weight
-        self.conf_threshold = conf_threshold
-        
+        self.bce_loss = nn.BCELoss(reduction='none')
+        self.loc_loss_weight = 1.0
+    
     def forward(self, pred_locs, pred_conf, target_locs, target_conf):
-        batch_size = pred_locs.size(0)
+        """
+        Compute loss for artery detection
+        pred_locs: [batch_size, 3] - predicted x, y, width
+        pred_conf: [batch_size, 1] - predicted confidence
+        target_locs: [batch_size, 3] - target x, y, width
+        target_conf: [batch_size, 1] - target confidence
+        """
+        batch_size = pred_conf.size(0)
         
-        # Calculate class weights for balanced training
-        # Count positive and negative samples in this batch
-        num_positives = target_conf.sum().item()
-        num_negatives = batch_size - num_positives
-        
-        # Create per-sample weights
+        # Compute confidence loss with class weighting
+        pos_weight = 3.0  # Weight for positive samples
         sample_weights = torch.ones_like(target_conf)
-        if num_positives > 0 and num_negatives > 0:
-            # Set higher weight for positive samples (arteries)
-            sample_weights[target_conf > 0.5] = float(batch_size) / (2.0 * num_positives)
-            # Set lower weight for negative samples (non-arteries)
-            sample_weights[target_conf <= 0.5] = float(batch_size) / (2.0 * num_negatives)
+        sample_weights[target_conf > 0.5] = pos_weight
         
-        # Ensure target_conf has same shape as pred_conf [batch_size, 1]
-        target_conf = target_conf.view(-1, 1)
-        sample_weights = sample_weights.view(-1, 1)
+        conf_loss = self.bce_loss(pred_conf, target_conf)
+        conf_loss = (conf_loss * sample_weights).mean()
         
-        # Standard binary cross entropy with sample weights
-        conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
+        # Compute location loss only for positive samples
+        pos_mask = (target_conf > 0.5).float()
         
-        # Only compute location loss for positive samples
-        pos_mask = (target_conf > self.conf_threshold).float()
+        # L1 loss for bounding box regression
+        loc_loss = F.l1_loss(pred_locs, target_locs, reduction='none')
+        loc_loss = (loc_loss * pos_mask.unsqueeze(-1)).sum() / (pos_mask.sum() + 1e-6)
         
-        # X coordinate loss (centered on artery)
-        x_loss = F.smooth_l1_loss(
-            pred_locs[:, 0] * pos_mask, 
-            target_locs[:, 0] * pos_mask,
-            reduction='sum'
-        ) / (pos_mask.sum() + 1e-6)
+        # Total loss
+        total_loss = conf_loss + self.loc_loss_weight * loc_loss
         
-        # Y coordinate loss (usually fixed at 0.5 for arteries)
-        y_loss = F.smooth_l1_loss(
-            pred_locs[:, 1] * pos_mask,
-            target_locs[:, 1] * pos_mask,
-            reduction='sum'
-        ) / (pos_mask.sum() + 1e-6)
-        
-        # Width loss
-        w_loss = F.smooth_l1_loss(
-            pred_locs[:, 2] * pos_mask,
-            target_locs[:, 2] * pos_mask,
-            reduction='sum'
-        ) / (pos_mask.sum() + 1e-6)
-        
-        # Total location loss (only x, y, width)
-        loc_loss = x_loss + y_loss + w_loss
-        
-        # Final loss combining confidence and location components
-        total_loss = self.conf_weight * conf_loss + self.loc_weight * loc_loss * pos_mask.mean()
-        
-        return total_loss, {
-            'conf_loss': conf_loss.item(),
-            'loc_loss': loc_loss.item(),
-            'x_loss': x_loss.item(),
-            'w_loss': w_loss.item()
-        }
+        return total_loss, conf_loss, loc_loss
 
 def train_custom_model(config):
+    """Train the custom artery detection model"""
+    
     # Set device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
     
     # Create model
     model = CustomArteryDetector().to(device)
-    print("Created custom artery detector model from scratch")
     
-    # Create datasets and dataloaders
-    print(f"Loading datasets from {config.data_path}")
+    # Loss and optimizer
+    criterion = CustomArteryLoss()
+    optimizer = optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
+    
+    # Learning rate scheduler with warmup
+    num_epochs = config.epochs
+    warmup_epochs = 5
+    scheduler = optim.lr_scheduler.OneCycleLR(
+        optimizer,
+        max_lr=1e-3,
+        epochs=num_epochs,
+        steps_per_epoch=len(train_loader),
+        pct_start=warmup_epochs/num_epochs,
+        div_factor=25.0,
+        final_div_factor=1000.0
+    )
+    
+    # Create data loaders with augmentation
+    train_transform = transforms.Compose([
+        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.RandomRotation(10),
+        transforms.RandomAffine(
+            degrees=0, 
+            translate=(0.1, 0.1),
+            scale=(0.9, 1.1)
+        )
+    ])
+    
     train_dataset = ArteryDataset(
-        config.data_path, 
+        config.data_path,
         split='train',
         annotation_type=config.annotation_type,
-        filter_empty=config.filter_empty
+        transform=train_transform
     )
     
     val_dataset = ArteryDataset(
-        config.data_path, 
+        config.data_path,
         split='val',
-        annotation_type=config.annotation_type,
-        filter_empty=config.filter_empty
+        annotation_type=config.annotation_type
     )
     
-    print(f"Training set size: {len(train_dataset)}")
-    print(f"Validation set size: {len(val_dataset)}")
-    
     train_loader = DataLoader(
-        train_dataset, 
-        batch_size=config.batch_size, 
+        train_dataset,
+        batch_size=config.batch_size,
         shuffle=True,
-        collate_fn=collate_fn,  # Use custom collate function
-        num_workers=0  # Use 0 workers for debugging
+        num_workers=4,
+        pin_memory=True
     )
     
     val_loader = DataLoader(
-        val_dataset, 
+        val_dataset,
         batch_size=config.batch_size,
-        collate_fn=collate_fn,  # Use custom collate function
-        num_workers=0  # Use 0 workers for debugging
+        shuffle=False,
+        num_workers=4,
+        pin_memory=True
     )
-    
-    # Loss and optimizer
-    criterion = CustomArteryLoss(
-        loc_weight=1.0,
-        conf_weight=2.0
-    )
-    
-    # Custom learning rate scheduling with warmup
-    def lr_lambda(epoch):
-        warmup_epochs = 5
-        if epoch < warmup_epochs:
-            return epoch / warmup_epochs
-        return 0.5 * (1 + np.cos((epoch - warmup_epochs) / (config.epochs - warmup_epochs) * np.pi))
-    
-    optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
-    scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
-    
-    # Create directories for saving results
-    os.makedirs('checkpoints', exist_ok=True)
-    os.makedirs('visualizations', exist_ok=True)
     
     # Training loop
     best_val_loss = float('inf')
-    train_losses = []
-    val_losses = []
-    early_stop_patience = 10
-    early_stop_counter = 0
+    patience = 10
+    patience_counter = 0
     
-    print(f"Starting training for {config.epochs} epochs")
-    
-    for epoch in range(config.epochs):
-        # Training
+    for epoch in range(num_epochs):
         model.train()
-        epoch_loss = 0
-        progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{config.epochs}")
+        total_loss = 0
+        progress_bar = tqdm(train_loader, desc=f'Epoch {epoch+1}/{num_epochs}')
         
-        for images, target_locs, target_conf in progress_bar:
+        for batch_idx, (images, target_locs, target_conf) in enumerate(progress_bar):
+            images = images.to(device)
+            target_locs = target_locs.to(device)
+            target_conf = target_conf.to(device)
+            
+            # Zero gradients
+            optimizer.zero_grad()
+            
             try:
-                # Move to device
-                images = images.to(device)
-                target_locs = target_locs.to(device)
-                target_conf = target_conf.to(device)
-                
-                # Debug info
-                if epoch == 0 and progress_bar.n == 0:
-                    print(f"Input shape: {images.shape}, dtype: {images.dtype}")
-                    print(f"Target locs shape: {target_locs.shape}, dtype: {target_locs.dtype}")
-                    print(f"Target conf shape: {target_conf.shape}, dtype: {target_conf.dtype}")
-                
                 # Forward pass
-                optimizer.zero_grad()
                 pred_locs, pred_conf = model(images)
                 
                 # Compute loss
-                loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                loss, conf_loss, loc_loss = criterion(pred_locs, pred_conf, target_locs, target_conf)
                 
                 # Backward pass
                 loss.backward()
                 
                 # Gradient clipping
-                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
                 
                 optimizer.step()
+                scheduler.step()
                 
                 # Update progress bar
-                epoch_loss += loss.item()
+                total_loss += loss.item()
                 progress_bar.set_postfix({
                     'loss': loss.item(),
-                    'conf_loss': loss_components['conf_loss'],
-                    'loc_loss': loss_components['loc_loss'],
+                    'conf_loss': conf_loss.item(),
+                    'loc_loss': loc_loss.item(),
                     'lr': optimizer.param_groups[0]['lr']
                 })
+                
             except Exception as e:
-                print(f"Error in batch: {e}")
-                import traceback
-                traceback.print_exc()
+                print(f"Error in batch {batch_idx}: {str(e)}")
                 continue
         
-        avg_train_loss = epoch_loss / len(train_loader)
-        train_losses.append(avg_train_loss)
-        
-        # Update learning rate
-        scheduler.step()
-        
-        # Validation
+        # Validation phase
         model.eval()
         val_loss = 0
         
         with torch.no_grad():
             for images, target_locs, target_conf in val_loader:
+                images = images.to(device)
+                target_locs = target_locs.to(device)
+                target_conf = target_conf.to(device)
+                
                 try:
-                    images = images.to(device)
-                    target_locs = target_locs.to(device)
-                    target_conf = target_conf.to(device)
-                    
                     pred_locs, pred_conf = model(images)
-                    loss, _ = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                    loss, conf_loss, loc_loss = criterion(pred_locs, pred_conf, target_locs, target_conf)
                     val_loss += loss.item()
                 except Exception as e:
-                    print(f"Error in validation batch: {e}")
+                    print(f"Error in validation: {str(e)}")
                     continue
         
-        avg_val_loss = val_loss / len(val_loader)
-        val_losses.append(avg_val_loss)
-        
-        print(f"Epoch {epoch+1}/{config.epochs}, Train Loss: {avg_train_loss:.4f}, Val Loss: {avg_val_loss:.4f}")
+        val_loss /= len(val_loader)
+        print(f"\nEpoch {epoch+1} - Avg train loss: {total_loss/len(train_loader):.4f}, Val loss: {val_loss:.4f}")
         
         # Save best model
-        if avg_val_loss < best_val_loss:
-            best_val_loss = avg_val_loss
-            early_stop_counter = 0
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            patience_counter = 0
+            print(f"Saving best model with val_loss: {val_loss:.4f}")
             torch.save({
                 'epoch': epoch,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
-                'val_loss': best_val_loss
-            }, 'checkpoints/best_custom_model.pth')
-            print(f"Saved best model with Val Loss: {best_val_loss:.4f}")
+                'val_loss': val_loss,
+            }, 'best_custom_model.pth')
         else:
-            early_stop_counter += 1
-        
+            patience_counter += 1
+            
         # Early stopping
-        if early_stop_counter >= early_stop_patience:
-            print(f"Early stopping at epoch {epoch+1}")
+        if patience_counter >= patience:
+            print(f"Early stopping triggered after {epoch+1} epochs")
             break
-        
-        # Save checkpoint every save_interval epochs
-        if (epoch + 1) % config.save_interval == 0:
-            torch.save({
-                'epoch': epoch,
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'val_loss': avg_val_loss
-            }, f'checkpoints/custom_model_epoch_{epoch+1}.pth')
     
-    # Plot loss curves
-    plt.figure(figsize=(10, 5))
-    plt.plot(train_losses, label='Train Loss')
-    plt.plot(val_losses, label='Validation Loss')
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.title('Training and Validation Loss')
-    plt.legend()
-    plt.savefig('visualizations/loss_curve.png')
-    
-    # Save final model
-    torch.save(model, 'checkpoints/final_custom_model.pth')
-    print("Training complete! Final model saved.")
+    print("Training completed")
     
     return model 
