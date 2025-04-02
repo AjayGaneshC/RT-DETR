@@ -1,173 +1,304 @@
 import torch
 import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader
 import torch.nn.functional as F
+import numpy as np
+import os
+from tqdm import tqdm
+import matplotlib.pyplot as plt
+from dataset import ArteryDataset
+from custom_model import CustomArteryDetector
 
-class CustomArteryDetector(nn.Module):
-    def __init__(self):
+# Add custom dataset collate function to handle variable sized inputs
+def collate_fn(batch):
+    images = []
+    target_locs = []
+    target_conf = []
+    
+    for img, loc, conf in batch:
+        # Make sure image is correctly formatted
+        if isinstance(img, np.ndarray):
+            # Convert numpy arrays to tensors
+            if len(img.shape) == 2:  # Single channel grayscale
+                img = torch.from_numpy(img).float().unsqueeze(0)  # Add channel dimension
+            elif len(img.shape) == 3 and img.shape[2] == 1:  # Already has channel dimension
+                img = torch.from_numpy(img).float().permute(2, 0, 1)
+            elif len(img.shape) == 3 and img.shape[2] == 3:  # RGB image
+                img = torch.from_numpy(img).float().permute(2, 0, 1)
+                # Convert to grayscale
+                img = 0.299 * img[0:1] + 0.587 * img[1:2] + 0.114 * img[2:3]
+        
+        # Ensure image has correct dimensions and type
+        if not isinstance(img, torch.Tensor):
+            raise TypeError(f"Expected image to be torch.Tensor, got {type(img)}")
+        
+        if img.dim() == 2:
+            img = img.unsqueeze(0)  # Add channel dimension
+        
+        # Normalize if needed
+        if img.min() < 0 or img.max() > 1:
+            img = img.float() / 255.0
+        
+        images.append(img)
+        target_locs.append(loc)
+        target_conf.append(conf)
+    
+    # Stack batches
+    images = torch.stack(images)
+    target_locs = torch.stack(target_locs)
+    target_conf = torch.stack(target_conf)
+    
+    return images, target_locs, target_conf
+
+class CustomArteryLoss(nn.Module):
+    def __init__(self, loc_weight=1.0, conf_weight=2.0, conf_threshold=0.5):
         super().__init__()
+        self.loc_weight = loc_weight
+        self.conf_weight = conf_weight
+        self.conf_threshold = conf_threshold
         
-        # Feature extraction layers - from scratch, no pretrained weights
-        self.feature_extractor = nn.Sequential(
-            # Initial convolution block
-            nn.Conv2d(1, 32, kernel_size=7, stride=2, padding=3),  # Using 1 channel for grayscale input
-            nn.BatchNorm2d(32),
-            nn.ReLU(inplace=True),
-            nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        )
+    def forward(self, pred_locs, pred_conf, target_locs, target_conf):
+        batch_size = pred_locs.size(0)
         
-        # Convolutional blocks with proper residual connections
-        self.block1 = self._make_conv_block(32, 64)
+        # Binary classification loss with higher weight for positive samples
+        pos_weight = torch.tensor([3.0]).to(pred_conf.device)
+        conf_loss = F.binary_cross_entropy(pred_conf, target_conf, 
+                                          pos_weight=pos_weight)
         
-        # Specialized vertical structure detector for arteries
-        self.vert_detector = nn.Sequential(
-            nn.Conv2d(64, 64, kernel_size=(7, 3), padding=(3, 1)),
-            nn.BatchNorm2d(64),
-            nn.ReLU(inplace=True)
-        )
+        # Only compute location loss for positive samples
+        pos_mask = (target_conf > self.conf_threshold).float()
         
-        self.block2 = self._make_conv_block(64, 128)
+        # X coordinate loss (centered on artery)
+        x_loss = F.smooth_l1_loss(
+            pred_locs[:, 0] * pos_mask, 
+            target_locs[:, 0] * pos_mask,
+            reduction='sum'
+        ) / (pos_mask.sum() + 1e-6)
         
-        # Edge enhancement layer - important for artery boundaries
-        self.edge_enhance = nn.Sequential(
-            nn.Conv2d(128, 128, kernel_size=3, padding=1, groups=4),
-            nn.BatchNorm2d(128),
-            nn.ReLU(inplace=True)
-        )
+        # Y coordinate loss (usually fixed at 0.5 for arteries)
+        y_loss = F.smooth_l1_loss(
+            pred_locs[:, 1] * pos_mask,
+            target_locs[:, 1] * pos_mask,
+            reduction='sum'
+        ) / (pos_mask.sum() + 1e-6)
         
-        self.block3 = self._make_conv_block(128, 256)
+        # Width loss
+        w_loss = F.smooth_l1_loss(
+            pred_locs[:, 2] * pos_mask,
+            target_locs[:, 2] * pos_mask,
+            reduction='sum'
+        ) / (pos_mask.sum() + 1e-6)
         
-        # Attention mechanism
-        self.attention = self._make_attention_block(256)
+        # Height loss (usually fixed at 1.0 for arteries)
+        h_loss = F.smooth_l1_loss(
+            pred_locs[:, 3] * pos_mask,
+            target_locs[:, 3] * pos_mask,
+            reduction='sum'
+        ) / (pos_mask.sum() + 1e-6)
         
-        # Final feature pooling
-        self.pool = nn.AdaptiveAvgPool2d((1, 4))
+        # Total location loss
+        loc_loss = x_loss + y_loss + w_loss + h_loss
         
-        # Confidence head - determines if artery is present
-        self.confidence_head = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(256 * 4, 512),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.5),
-            nn.Linear(512, 256),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.3),
-            nn.Linear(256, 1),
-            nn.Sigmoid()
-        )
+        # Final loss combining confidence and location components
+        total_loss = self.conf_weight * conf_loss + self.loc_weight * loc_loss * pos_mask.mean()
         
-        # Location head - predicts bounding box coordinates
-        self.location_head = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(256 * 4, 512),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.3),
-            nn.Linear(512, 256),
-            nn.ReLU(inplace=True),
-            nn.Linear(256, 4)  # x, y, w, h
-        )
-        
-        # Initialize weights
-        self._initialize_weights()
-    
-    def _make_conv_block(self, in_channels, out_channels):
-        """Create a convolutional block with proper residual connection"""
-        return ResidualBlock(in_channels, out_channels)
-    
-    def _make_attention_block(self, channels):
-        """Create an attention mechanism to focus on relevant features"""
-        return nn.Sequential(
-            # Spatial attention
-            nn.Conv2d(channels, 1, kernel_size=7, padding=3),
-            nn.Sigmoid(),
-            
-            # Apply attention
-            nn.Conv2d(channels, channels, kernel_size=1),
-            nn.BatchNorm2d(channels),
-            nn.ReLU(inplace=True)
-        )
-    
-    def _initialize_weights(self):
-        """Initialize weights with careful initialization for better convergence"""
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-                if m.bias is not None:
-                    nn.init.constant_(m.bias, 0)
-            elif isinstance(m, nn.BatchNorm2d):
-                nn.init.constant_(m.weight, 1)
-                nn.init.constant_(m.bias, 0)
-            elif isinstance(m, nn.Linear):
-                nn.init.normal_(m.weight, 0, 0.01)
-                nn.init.constant_(m.bias, 0)
-    
-    def forward(self, x):
-        # Extract features
-        x = self.feature_extractor(x)
-        
-        # Apply convolutional blocks with residual connections
-        x = self.block1(x)
-        x = self.vert_detector(x)
-        x = self.block2(x)
-        x = self.edge_enhance(x)
-        x = self.block3(x)
-        x = self.attention(x)
-        features = self.pool(x)
-        
-        # Get confidence score (artery vs non-artery)
-        confidence = self.confidence_head(features)
-        
-        # Get location predictions
-        raw_locations = self.location_head(features)
-        
-        # Transform location predictions to appropriate ranges
-        locations = torch.cat([
-            torch.sigmoid(raw_locations[:, 0:1]),  # x (normalized)
-            torch.sigmoid(raw_locations[:, 1:2]),  # y (normalized)
-            torch.sigmoid(raw_locations[:, 2:3]),  # width (normalized)
-            torch.sigmoid(raw_locations[:, 3:4])   # height (normalized)
-        ], dim=1)
-        
-        return locations, confidence
+        return total_loss, {
+            'conf_loss': conf_loss.item(),
+            'loc_loss': loc_loss.item(),
+            'x_loss': x_loss.item(),
+            'w_loss': w_loss.item()
+        }
 
-class ResidualBlock(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super(ResidualBlock, self).__init__()
-        
-        # Main path
-        self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1)
-        self.bn1 = nn.BatchNorm2d(out_channels)
-        self.relu = nn.ReLU(inplace=True)
-        self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1)
-        self.bn2 = nn.BatchNorm2d(out_channels)
-        
-        # Shortcut path (for matching dimensions)
-        self.shortcut = nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=1, padding=0),
-            nn.BatchNorm2d(out_channels)
-        )
-        
-        # Pooling after the residual connection
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
+def train_custom_model(config):
+    # Set device
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Using device: {device}")
     
-    def forward(self, x):
-        # Main path
-        residual = x
+    # Create model
+    model = CustomArteryDetector().to(device)
+    print("Created custom artery detector model from scratch")
+    
+    # Create datasets and dataloaders
+    print(f"Loading datasets from {config.data_path}")
+    train_dataset = ArteryDataset(
+        config.data_path, 
+        split='train',
+        annotation_type=config.annotation_type,
+        filter_empty=config.filter_empty
+    )
+    
+    val_dataset = ArteryDataset(
+        config.data_path, 
+        split='val',
+        annotation_type=config.annotation_type,
+        filter_empty=config.filter_empty
+    )
+    
+    print(f"Training set size: {len(train_dataset)}")
+    print(f"Validation set size: {len(val_dataset)}")
+    
+    train_loader = DataLoader(
+        train_dataset, 
+        batch_size=config.batch_size, 
+        shuffle=True,
+        collate_fn=collate_fn,  # Use custom collate function
+        num_workers=0  # Use 0 workers for debugging
+    )
+    
+    val_loader = DataLoader(
+        val_dataset, 
+        batch_size=config.batch_size,
+        collate_fn=collate_fn,  # Use custom collate function
+        num_workers=0  # Use 0 workers for debugging
+    )
+    
+    # Loss and optimizer
+    criterion = CustomArteryLoss(
+        loc_weight=1.0,
+        conf_weight=2.0
+    )
+    
+    # Custom learning rate scheduling with warmup
+    def lr_lambda(epoch):
+        warmup_epochs = 5
+        if epoch < warmup_epochs:
+            return epoch / warmup_epochs
+        return 0.5 * (1 + np.cos((epoch - warmup_epochs) / (config.epochs - warmup_epochs) * np.pi))
+    
+    optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
+    scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+    
+    # Create directories for saving results
+    os.makedirs('checkpoints', exist_ok=True)
+    os.makedirs('visualizations', exist_ok=True)
+    
+    # Training loop
+    best_val_loss = float('inf')
+    train_losses = []
+    val_losses = []
+    early_stop_patience = 10
+    early_stop_counter = 0
+    
+    print(f"Starting training for {config.epochs} epochs")
+    
+    for epoch in range(config.epochs):
+        # Training
+        model.train()
+        epoch_loss = 0
+        progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1}/{config.epochs}")
         
-        out = self.conv1(x)
-        out = self.bn1(out)
-        out = self.relu(out)
+        for images, target_locs, target_conf in progress_bar:
+            try:
+                # Move to device
+                images = images.to(device)
+                target_locs = target_locs.to(device)
+                target_conf = target_conf.to(device)
+                
+                # Debug info
+                if epoch == 0 and progress_bar.n == 0:
+                    print(f"Input shape: {images.shape}, dtype: {images.dtype}")
+                    print(f"Target locs shape: {target_locs.shape}, dtype: {target_locs.dtype}")
+                    print(f"Target conf shape: {target_conf.shape}, dtype: {target_conf.dtype}")
+                
+                # Forward pass
+                optimizer.zero_grad()
+                pred_locs, pred_conf = model(images)
+                
+                # Compute loss
+                loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                
+                # Backward pass
+                loss.backward()
+                
+                # Gradient clipping
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+                
+                optimizer.step()
+                
+                # Update progress bar
+                epoch_loss += loss.item()
+                progress_bar.set_postfix({
+                    'loss': loss.item(),
+                    'conf_loss': loss_components['conf_loss'],
+                    'loc_loss': loss_components['loc_loss'],
+                    'lr': optimizer.param_groups[0]['lr']
+                })
+            except Exception as e:
+                print(f"Error in batch: {e}")
+                import traceback
+                traceback.print_exc()
+                continue
         
-        out = self.conv2(out)
-        out = self.bn2(out)
+        avg_train_loss = epoch_loss / len(train_loader)
+        train_losses.append(avg_train_loss)
         
-        # Shortcut path
-        residual = self.shortcut(residual)
+        # Update learning rate
+        scheduler.step()
         
-        # Add residual connection
-        out += residual
-        out = self.relu(out)
+        # Validation
+        model.eval()
+        val_loss = 0
         
-        # Pooling after the addition
-        out = self.pool(out)
+        with torch.no_grad():
+            for images, target_locs, target_conf in val_loader:
+                try:
+                    images = images.to(device)
+                    target_locs = target_locs.to(device)
+                    target_conf = target_conf.to(device)
+                    
+                    pred_locs, pred_conf = model(images)
+                    loss, _ = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                    val_loss += loss.item()
+                except Exception as e:
+                    print(f"Error in validation batch: {e}")
+                    continue
         
-        return out 
+        avg_val_loss = val_loss / len(val_loader)
+        val_losses.append(avg_val_loss)
+        
+        print(f"Epoch {epoch+1}/{config.epochs}, Train Loss: {avg_train_loss:.4f}, Val Loss: {avg_val_loss:.4f}")
+        
+        # Save best model
+        if avg_val_loss < best_val_loss:
+            best_val_loss = avg_val_loss
+            early_stop_counter = 0
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'val_loss': best_val_loss
+            }, 'checkpoints/best_custom_model.pth')
+            print(f"Saved best model with Val Loss: {best_val_loss:.4f}")
+        else:
+            early_stop_counter += 1
+        
+        # Early stopping
+        if early_stop_counter >= early_stop_patience:
+            print(f"Early stopping at epoch {epoch+1}")
+            break
+        
+        # Save checkpoint every save_interval epochs
+        if (epoch + 1) % config.save_interval == 0:
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'val_loss': avg_val_loss
+            }, f'checkpoints/custom_model_epoch_{epoch+1}.pth')
+    
+    # Plot loss curves
+    plt.figure(figsize=(10, 5))
+    plt.plot(train_losses, label='Train Loss')
+    plt.plot(val_losses, label='Validation Loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Training and Validation Loss')
+    plt.legend()
+    plt.savefig('visualizations/loss_curve.png')
+    
+    # Save final model
+    torch.save(model, 'checkpoints/final_custom_model.pth')
+    print("Training complete! Final model saved.")
+    
+    return model 
