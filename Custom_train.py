@@ -74,6 +74,10 @@ class CustomArteryLoss(nn.Module):
             # Set lower weight for negative samples (non-arteries)
             sample_weights[target_conf <= 0.5] = float(batch_size) / (2.0 * num_negatives)
         
+        # Ensure target_conf has same shape as pred_conf [batch_size, 1]
+        target_conf = target_conf.view(-1, 1)
+        sample_weights = sample_weights.view(-1, 1)
+        
         # Standard binary cross entropy with sample weights
         conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
         
