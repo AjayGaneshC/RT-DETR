@@ -1,17 +1,3 @@
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -20,15 +6,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -37,15 +21,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -54,15 +36,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -71,15 +51,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -88,15 +66,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -105,15 +81,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -122,15 +96,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -139,15 +111,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Epoch 1/25:   4%|████▋                                                                                                                             | 160/4388 [00:01<00:42, 98.62it/s]Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -156,15 +126,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -173,15 +141,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Epoch 1/25:   5%|██████▏                                                                                                                          | 209/4388 [00:02<00:40, 102.57it/s]Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -190,15 +156,13 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Error in batch: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 220, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
     loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -207,33 +171,839 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 78, in forward
-    conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 3560, in binary_cross_entropy
-    raise ValueError(
-ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.
-Epoch 1/25:   5%|██████▎                                                                                                                           | 211/4388 [00:02<00:42, 99.43it/s]
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Epoch 1/25:   4%|█████                                                                                                                             | 170/4388 [00:01<00:43, 97.38it/s]Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Epoch 1/25:   4%|█████▎                                                                                                                            | 180/4388 [00:01<00:43, 96.78it/s]Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Epoch 1/25:   4%|█████▋                                                                                                                            | 190/4388 [00:02<00:43, 96.88it/s]Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Epoch 1/25:   5%|█████▉                                                                                                                           | 202/4388 [00:02<00:40, 102.86it/s]Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Epoch 1/25:   5%|██████▎                                                                                                                          | 216/4388 [00:02<00:37, 111.14it/s]Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Error in batch: index 3 is out of bounds for dimension 1 with size 3
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 111, in forward
+    target_locs[:, 3] * pos_mask,
+    ~~~~~~~~~~~^^^^^^
+IndexError: index 3 is out of bounds for dimension 1 with size 3
+Epoch 1/25:   5%|██████▍                                                                                                                           | 218/4388 [00:02<00:44, 94.02it/s]
 Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 85, in <module>
     main() 
     ^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 80, in main
     train_custom_model(config)
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 202, in train_custom_model
-    for images, target_locs, target_conf in progress_bar:
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/tqdm/std.py", line 1181, in __iter__
-    for obj in iterable:
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 733, in __next__
-    data = self._next_data()
-           ^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 789, in _next_data
-    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
-    data = [self.dataset[idx] for idx in possibly_batched_index]
-            ~~~~~~~~~~~~^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/dataset.py", line 216, in __getitem__
-    image = torch.from_numpy(image).unsqueeze(0)
-            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 224, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    num_positives = target_conf.sum().item()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
 KeyboardInterrupt
+
+(CrackedEngineer) endoai@endoai:~/PHASE-1/Ajay/CrackedEngineer$ 
