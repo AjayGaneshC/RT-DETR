@@ -1,36 +1,10 @@
-(CrackedEngineer) endoai@endoai:~/PHASE-1/Ajay/CrackedEngineer$ python3  Code/main.py --custom_model --data_path /home/endoai/PHASE-1/Ajay/CrackedEngineer/data --batch_size 16 --epoc
-hs 25 --annotation_type auto
-Training custom model from scratch...
-Using device: cuda
-Created custom artery detector model from scratch
-Loading datasets from /home/endoai/PHASE-1/Ajay/CrackedEngineer/data
-Initializing train dataset...
-Found 70195 image files in train set
-
-Annotation statistics:
-  Valid annotations: 40068
-  NLRAW images: 30127
-  Total samples: 70195
-Found 70195 samples for train set
-Initializing val dataset...
-Found 4129 image files in val set
-
-Annotation statistics:
-  Valid annotations: 2363
-  NLRAW images: 1766
-  Total samples: 4129
-Found 4129 samples for val set
-Training set size: 70195
-Validation set size: 4129
-Starting training for 25 epochs
-Epoch 1/25:   0%|                                                                                                                                            | 0/4388 [00:00<?, ?it/s]
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+           ^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+Error in batch: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 85, in <module>
-    main() 
-    ^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 80, in main
-    train_custom_model(config)
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 153, in train_custom_model
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 206, in train_custom_model
     pred_locs, pred_conf = model(images)
                            ^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
@@ -39,18 +13,9 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 119, in forward
-    features = self.feature_extractor(x)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
-    input = module(input)
-            ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 113, in forward
+    x = self.attention(x)
+        ^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -72,5 +37,136 @@ Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
     return F.conv2d(
            ^^^^^^^^^
-RuntimeError: Given groups=1, weight of size [64, 32, 1, 1], expected input[16, 64, 32, 256] to have 32 channels, but got 64 channels instead
-(CrackedEngineer) endoai@endoai:~/PHASE-1/Ajay/CrackedEngineer$ 
+RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+Error in batch: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 206, in train_custom_model
+    pred_locs, pred_conf = model(images)
+                           ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 113, in forward
+    x = self.attention(x)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+           ^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+Error in batch: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 206, in train_custom_model
+    pred_locs, pred_conf = model(images)
+                           ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 113, in forward
+    x = self.attention(x)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+           ^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+Error in batch: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 206, in train_custom_model
+    pred_locs, pred_conf = model(images)
+                           ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 113, in forward
+    x = self.attention(x)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+           ^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+Epoch 1/25:   8%|█████████▊                                                                                                                       | 333/4388 [00:03<00:38, 104.98it/s]
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 85, in <module>
+    main() 
+    ^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 80, in main
+    train_custom_model(config)
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 191, in train_custom_model
+    for images, target_locs, target_conf in progress_bar:
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 733, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py", line 789, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+            ~~~~~~~~~~~~^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/dataset.py", line 209, in __getitem__
+    image = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
