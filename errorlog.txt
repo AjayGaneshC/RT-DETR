@@ -1,152 +1,313 @@
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
-    return F.conv2d(
-           ^^^^^^^^^
-RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
-Error in batch: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 206, in train_custom_model
-    pred_locs, pred_conf = model(images)
-                           ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 113, in forward
-    x = self.attention(x)
-        ^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
-    input = module(input)
-            ^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
-    return self._conv_forward(input, self.weight, self.bias)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
-    return F.conv2d(
-           ^^^^^^^^^
-RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
-Error in batch: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 206, in train_custom_model
-    pred_locs, pred_conf = model(images)
-                           ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 113, in forward
-    x = self.attention(x)
-        ^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
-    input = module(input)
-            ^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
-    return self._conv_forward(input, self.weight, self.bias)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
-    return F.conv2d(
-           ^^^^^^^^^
-RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
-Error in batch: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Epoch 1/25:  16%|████████████████████▍                                                                                                             | 690/4388 [00:06<00:37, 97.60it/s]Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 206, in train_custom_model
-    pred_locs, pred_conf = model(images)
-                           ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 113, in forward
-    x = self.attention(x)
-        ^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
-    input = module(input)
-            ^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
-    return self._conv_forward(input, self.weight, self.bias)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
-    return F.conv2d(
-           ^^^^^^^^^
-RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
-Error in batch: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
 Traceback (most recent call last):
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 206, in train_custom_model
-    pred_locs, pred_conf = model(images)
-                           ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_model.py", line 113, in forward
-    x = self.attention(x)
-        ^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/container.py", line 240, in forward
-    input = module(input)
-            ^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
     return self._call_impl(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
     return forward_call(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
-    return self._conv_forward(input, self.weight, self.bias)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
-    return F.conv2d(
-           ^^^^^^^^^
-RuntimeError: Given groups=1, weight of size [256, 256, 1, 1], expected input[16, 1, 4, 32] to have 256 channels, but got 1 channels instead
-Epoch 1/25:   8%|█████████▊                                                                                                                       | 333/4388 [00:03<00:38, 104.98it/s]
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Epoch 1/25:  16%|████████████████████▋                                                                                                             | 700/4388 [00:06<00:37, 97.87it/s]Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Error in batch: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Traceback (most recent call last):
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 209, in train_custom_model
+    loss, loss_components = criterion(pred_locs, pred_conf, target_locs, target_conf)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/custom_train.py", line 66, in forward
+    conf_loss = F.binary_cross_entropy(pred_conf, target_conf,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: binary_cross_entropy() got an unexpected keyword argument 'pos_weight'
+Epoch 1/25:  16%|████████████████████▊                                                                                                            | 708/4388 [00:06<00:34, 107.91it/s]
 Traceback (most recent call last):
   File "/home/endoai/PHASE-1/Ajay/CrackedEngineer/Code/main.py", line 85, in <module>
     main() 
@@ -170,3 +331,5 @@ Traceback (most recent call last):
     image = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 KeyboardInterrupt
+
+(CrackedEngineer) endoai@endoai:~/PHASE-1/Ajay/CrackedEngineer$ 
