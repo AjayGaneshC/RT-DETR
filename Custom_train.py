@@ -61,10 +61,21 @@ class CustomArteryLoss(nn.Module):
     def forward(self, pred_locs, pred_conf, target_locs, target_conf):
         batch_size = pred_locs.size(0)
         
-        # Binary classification loss with higher weight for positive samples
-        pos_weight = torch.tensor([3.0]).to(pred_conf.device)
-        conf_loss = F.binary_cross_entropy(pred_conf, target_conf, 
-                                          pos_weight=pos_weight)
+        # Calculate class weights for balanced training
+        # Count positive and negative samples in this batch
+        num_positives = target_conf.sum().item()
+        num_negatives = batch_size - num_positives
+        
+        # Create per-sample weights
+        sample_weights = torch.ones_like(target_conf)
+        if num_positives > 0 and num_negatives > 0:
+            # Set higher weight for positive samples (arteries)
+            sample_weights[target_conf > 0.5] = float(batch_size) / (2.0 * num_positives)
+            # Set lower weight for negative samples (non-arteries)
+            sample_weights[target_conf <= 0.5] = float(batch_size) / (2.0 * num_negatives)
+        
+        # Standard binary cross entropy with sample weights
+        conf_loss = F.binary_cross_entropy(pred_conf, target_conf, weight=sample_weights)
         
         # Only compute location loss for positive samples
         pos_mask = (target_conf > self.conf_threshold).float()
