@@ -295,73 +295,158 @@ def main():
                     logger.info(f"  - {item}")
             return
         
-        # Metrics
-        total_images = len(test_images)
-        total_time = 0
         results = []
+        failed_images = []
+        metrics = {
+            'total_time': 0,
+            'total_processed': 0,
+            'total_iou': 0,
+            'total_correct': 0,  # confidence > threshold and IoU > threshold
+            'total_positives': 0,  # ground truth positives
+            'true_positives': 0,
+            'false_positives': 0,
+            'false_negatives': 0
+        }
         
-        logger.info(f"Found {total_images} test images")
-        logger.info(f"Running inference on {total_images} test images...")
+        # Define thresholds
+        CONF_THRESHOLD = 0.5
+        IOU_THRESHOLD = 0.5
+        
+        logger.info(f"Running inference on {len(test_images)} test images...")
         
         for img_path in tqdm(test_images):
             try:
-                # Log the image being processed
-                logger.debug(f"Processing image: {img_path}")
+                # Get corresponding label path
+                label_path = os.path.join(
+                    test_label_dir,
+                    os.path.splitext(os.path.basename(img_path))[0] + '.txt'
+                )
+                
+                # Read ground truth
+                gt_box, gt_conf = read_label_file(label_path)
                 
                 # Preprocess and run inference
                 input_data = engine.preprocess_image(img_path)
+                
                 start_time = time.time()
                 position, confidence = engine.infer(input_data)
-                inference_time = (time.time() - start_time) * 1000
+                inference_time = (time.time() - start_time) * 1000  # ms
+                
+                # Update timing metrics
+                metrics['total_time'] += inference_time
+                metrics['total_processed'] += 1
+                
+                # Calculate IoU if ground truth exists
+                iou = 0
+                if gt_box is not None:
+                    iou = calculate_iou(position[0], gt_box)
+                    metrics['total_iou'] += iou
+                    
+                    # Update detection metrics
+                    pred_positive = confidence[0, 0] > CONF_THRESHOLD
+                    if gt_conf > 0.5:  # Ground truth positive
+                        metrics['total_positives'] += 1
+                        if pred_positive and iou > IOU_THRESHOLD:
+                            metrics['true_positives'] += 1
+                        else:
+                            metrics['false_negatives'] += 1
+                    else:  # Ground truth negative
+                        if pred_positive:
+                            metrics['false_positives'] += 1
                 
                 # Store results
                 results.append({
                     'image': os.path.basename(img_path),
                     'pred_center': float(position[0, 0]),
                     'pred_width': float(position[0, 1]),
-                    'pred_conf': float(confidence[0]),
-                    'inference_time': inference_time
+                    'pred_conf': float(confidence[0, 0]),
+                    'gt_center': float(gt_box[0]) if gt_box is not None else None,
+                    'gt_width': float(gt_box[1]) if gt_box is not None else None,
+                    'iou': float(iou),
+                    'inference_time': inference_time,
+                    'status': 'success'
                 })
-                
-                total_time += inference_time
                 
             except Exception as e:
                 logger.error(f"Error processing {img_path}: {str(e)}")
+                failed_images.append({
+                    'image': os.path.basename(img_path),
+                    'error': str(e)
+                })
                 continue
         
-        # Calculate and display results
-        if results:
-            avg_inference_time = total_time / len(results)
-            logger.info(f"\nResults Summary:")
-            logger.info(f"Average inference time: {avg_inference_time:.2f}ms")
-            logger.info(f"Processed {len(results)} images successfully")
+        # Calculate final metrics
+        total_images = len(results)
+        if total_images > 0:
+            avg_inference_time = metrics['total_time'] / metrics['total_processed']
+            avg_iou = metrics['total_iou'] / metrics['total_processed'] if metrics['total_processed'] > 0 else 0
             
-            # Save detailed results
-            results_file = os.path.join(output_dir, "inference_results.txt")
-            with open(results_file, 'w') as f:
-                f.write("Inference Results\n")
-                f.write("================\n\n")
-                f.write(f"Test directory: {test_img_dir}\n")
-                f.write(f"Engine file: {engine_path}\n")
-                f.write(f"Total images processed: {len(results)}\n")
-                f.write(f"Average inference time: {avg_inference_time:.2f}ms\n\n")
-                f.write("Detailed Results:\n")
-                for r in results:
-                    f.write(f"\nImage: {r['image']}\n")
-                    f.write(f"  Center: {r['pred_center']:.1f}\n")
-                    f.write(f"  Width: {r['pred_width']:.1f}\n")
-                    f.write(f"  Confidence: {r['pred_conf']:.3f}\n")
-                    f.write(f"  Inference Time: {r['inference_time']:.2f}ms\n")
+            # Calculate precision, recall, F1
+            precision = metrics['true_positives'] / (metrics['true_positives'] + metrics['false_positives']) if (metrics['true_positives'] + metrics['false_positives']) > 0 else 0
+            recall = metrics['true_positives'] / metrics['total_positives'] if metrics['total_positives'] > 0 else 0
+            f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
             
-            logger.info(f"Detailed results saved to {results_file}")
-        else:
-            logger.error("No results were generated!")
+            # Print metrics summary
+            logger.info("\nPerformance Metrics:")
+            logger.info(f"Average Inference Time: {avg_inference_time:.2f}ms")
+            logger.info(f"Average IoU: {avg_iou:.4f}")
+            logger.info(f"Precision: {precision:.4f}")
+            logger.info(f"Recall: {recall:.4f}")
+            logger.info(f"F1 Score: {f1_score:.4f}")
+            logger.info(f"\nDetection Statistics:")
+            logger.info(f"True Positives: {metrics['true_positives']}")
+            logger.info(f"False Positives: {metrics['false_positives']}")
+            logger.info(f"False Negatives: {metrics['false_negatives']}")
+            logger.info(f"Total Ground Truth Positives: {metrics['total_positives']}")
+        
+        # Save detailed results
+        results_file = os.path.join(output_dir, "inference_results.txt")
+        with open(results_file, 'w') as f:
+            f.write("Inference Results\n")
+            f.write("================\n\n")
+            
+            # Write summary metrics
+            f.write("Performance Metrics:\n")
+            f.write(f"Total images processed: {total_images}\n")
+            f.write(f"Average inference time: {avg_inference_time:.2f}ms\n")
+            f.write(f"Average IoU: {avg_iou:.4f}\n")
+            f.write(f"Precision: {precision:.4f}\n")
+            f.write(f"Recall: {recall:.4f}\n")
+            f.write(f"F1 Score: {f1_score:.4f}\n\n")
+            
+            f.write("Detection Statistics:\n")
+            f.write(f"True Positives: {metrics['true_positives']}\n")
+            f.write(f"False Positives: {metrics['false_positives']}\n")
+            f.write(f"False Negatives: {metrics['false_negatives']}\n")
+            f.write(f"Total Ground Truth Positives: {metrics['total_positives']}\n\n")
+            
+            # Write detailed results
+            f.write("Detailed Results:\n")
+            for r in results:
+                f.write(f"\nImage: {r['image']}\n")
+                f.write(f"  Prediction:\n")
+                f.write(f"    Center: {r['pred_center']:.1f}\n")
+                f.write(f"    Width: {r['pred_width']:.1f}\n")
+                f.write(f"    Confidence: {r['pred_conf']:.3f}\n")
+                if r['gt_center'] is not None:
+                    f.write(f"  Ground Truth:\n")
+                    f.write(f"    Center: {r['gt_center']:.1f}\n")
+                    f.write(f"    Width: {r['gt_width']:.1f}\n")
+                f.write(f"  IoU: {r['iou']:.4f}\n")
+                f.write(f"  Inference Time: {r['inference_time']:.2f}ms\n")
+            
+            if failed_images:
+                f.write("\nFailed Images:\n")
+                for fail in failed_images:
+                    f.write(f"\nImage: {fail['image']}\n")
+                    f.write(f"Error: {fail['error']}\n")
+        
+        logger.info(f"\nDetailed results saved to {results_file}")
         
     except Exception as e:
-        logger.error(f"Error during inference: {str(e)}")
+        logger.error(f"Fatal error: {str(e)}")
         import traceback
         logger.error(traceback.format_exc())
-        raise
 
 if __name__ == "__main__":
     main()
