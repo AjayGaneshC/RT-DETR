@@ -1,6 +1,6 @@
-python3 inference.py
-2025-04-15 18:44:35,253 - INFO - Initializing TensorRT engine from /home/htic/Downloads/model_fp16.engine...
-[04/15/2025-18:44:36] [TRT] [W] Using an engine plan file across different models of devices is not recommended and is likely to affect performance or even cause errors.
+htic@htic-desktop:~/Downloads$ python3 inference.py
+2025-04-15 19:17:28,492 - INFO - Initializing TensorRT engine from model_fp16.engine...
+[04/15/2025-19:17:28] [TRT] [W] Using an engine plan file across different models of devices is not recommended and is likely to affect performance or even cause errors.
 /home/htic/Downloads/inference.py:45: DeprecationWarning: Use get_tensor_shape instead.
   binding_shape = self.engine.get_binding_shape(binding)
 /home/htic/Downloads/inference.py:48: DeprecationWarning: Use set_input_shape instead.
@@ -11,47 +11,68 @@ python3 inference.py
   'name': self.engine.get_binding_name(binding)
 /home/htic/Downloads/inference.py:70: DeprecationWarning: Use get_tensor_mode instead.
   if self.engine.binding_is_input(binding):
-2025-04-15 18:44:36,697 - INFO - Allocated buffer for input: shape=(1, 2, 128, 1024), size=262144, dtype=<class 'numpy.float32'>
-[04/15/2025-18:44:37] [TRT] [E] 3: [executionContext.cpp::setBindingDimensions::1532] Error Code 3: API Usage Error (Parameter check failed at: runtime/api/executionContext.cpp::setBindingDimensions::1532, condition: mEngine.bindingIsInput(bindingIndex)
+2025-04-15 19:17:28,564 - INFO - Allocated buffer for input: shape=(1, 2, 128, 1024), size=262144, dtype=<class 'numpy.float32'>
+[04/15/2025-19:17:28] [TRT] [E] 3: [executionContext.cpp::setBindingDimensions::1532] Error Code 3: API Usage Error (Parameter check failed at: runtime/api/executionContext.cpp::setBindingDimensions::1532, condition: mEngine.bindingIsInput(bindingIndex)
 )
-2025-04-15 18:44:37,291 - INFO - Allocated buffer for confidence: shape=(1, 1), size=1, dtype=<class 'numpy.float32'>
-[04/15/2025-18:44:37] [TRT] [E] 3: [executionContext.cpp::setBindingDimensions::1532] Error Code 3: API Usage Error (Parameter check failed at: runtime/api/executionContext.cpp::setBindingDimensions::1532, condition: mEngine.bindingIsInput(bindingIndex)
+2025-04-15 19:17:28,564 - INFO - Allocated buffer for confidence: shape=(1, 1), size=1, dtype=<class 'numpy.float32'>
+[04/15/2025-19:17:28] [TRT] [E] 3: [executionContext.cpp::setBindingDimensions::1532] Error Code 3: API Usage Error (Parameter check failed at: runtime/api/executionContext.cpp::setBindingDimensions::1532, condition: mEngine.bindingIsInput(bindingIndex)
 )
-2025-04-15 18:44:37,292 - INFO - Allocated buffer for position: shape=(1, 2), size=2, dtype=<class 'numpy.float32'>
-2025-04-15 18:44:38,862 - INFO - Engine warmup completed
-2025-04-15 18:44:38,968 - INFO - Found 1855 test images
-2025-04-15 18:44:38,969 - INFO - Running inference on 1855 test images...
-  0%|                                                                                                                                                                            | 0/1855 [00:00<?, ?it/s]2025-04-15 18:44:39,146 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_0_Gid_1.jpeg: index 1 is out of bounds for axis 1 with size 1
-  0%|                                                                                                                                                                    | 1/1855 [00:00<04:47,  6.44it/s]2025-04-15 18:44:39,184 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_10_Gid_11.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,214 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_11_Gid_12.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,244 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_12_Gid_13.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,268 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_13_Gid_14.jpeg: index 1 is out of bounds for axis 1 with size 1
-  0%|▍                                                                                                                                                                   | 5/1855 [00:00<01:30, 20.41it/s]2025-04-15 18:44:39,294 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_14_Gid_15.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,316 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_15_Gid_16.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,341 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_16_Gid_17.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,374 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_17_Gid_18.jpeg: index 1 is out of bounds for axis 1 with size 1
-  0%|▊                                                                                                                                                                   | 9/1855 [00:00<01:07, 27.30it/s]2025-04-15 18:44:39,408 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_18_Gid_19.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,433 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_19_Gid_20.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,457 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_1_Gid_2.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,484 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_20_Gid_21.jpeg: index 1 is out of bounds for axis 1 with size 1
-  1%|█▏                                                                                                                                                                 | 13/1855 [00:00<00:59, 30.71it/s]2025-04-15 18:44:39,520 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_21_Gid_22.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,554 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_22_Gid_23.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,582 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_23_Gid_24.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,610 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_24_Gid_25.jpeg: index 1 is out of bounds for axis 1 with size 1
-  1%|█▍                                                                                                                                                                 | 17/1855 [00:00<00:59, 31.04it/s]2025-04-15 18:44:39,643 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_25_Gid_26.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,670 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_26_Gid_27.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,697 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_27_Gid_28.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,728 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_28_Gid_29.jpeg: index 1 is out of bounds for axis 1 with size 1
-  1%|█▊                                                                                                                                                                 | 21/1855 [00:00<00:57, 32.00it/s]2025-04-15 18:44:39,761 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_29_Gid_30.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,794 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_2_Gid_3.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,825 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_30_Gid_31.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,858 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_31_Gid_32.jpeg: index 1 is out of bounds for axis 1 with size 1
-  1%|██▏                                                                                                                                                                | 25/1855 [00:00<00:57, 31.63it/s]2025-04-15 18:44:39,890 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_32_Gid_33.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,915 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_33_Gid_34.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,940 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_34_Gid_35.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:39,965 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_35_Gid_36.jpeg: index 1 is out of bounds for axis 1 with size 1
-  2%|██▌                                                                                                                                                                | 29/1855 [00:00<00:54, 33.24it/s]2025-04-15 18:44:39,995 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_36_Gid_37.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:40,018 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_37_Gid_38.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:40,045 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_38_Gid_39.jpeg: index 1 is out of bounds for axis 1 with size 1
-2025-04-15 18:44:40,076 - ERROR - Error processing /home/htic/edge cases/edge_cases_21f_eve_data_image_labels/images/0_1_2_1169_1884_Lid_39_Gid_40.jpeg: index 1 is out of bounds for axis 1 with size 1
-  2%|██▉                                                                                                                                                                | 33/1855 [00:01<00:53, 34.14it/s]
+2025-04-15 19:17:28,565 - INFO - Allocated buffer for position: shape=(1, 2), size=2, dtype=<class 'numpy.float32'>
+2025-04-15 19:17:28,597 - INFO - Engine warmup completed
+2025-04-15 19:17:28,612 - INFO - Running inference on 1855 test images...
+100%|███████████████████████████████████████| 1855/1855 [00:46<00:00, 39.79it/s]
+2025-04-15 19:18:15,245 - INFO - 
+Performance Metrics:
+2025-04-15 19:18:15,246 - INFO - Average Inference Time: 9.84ms
+2025-04-15 19:18:15,246 - INFO - Average IoU: 0.0000
+2025-04-15 19:18:15,246 - INFO - Precision: 0.0000
+2025-04-15 19:18:15,246 - INFO - Recall: 0.0000
+2025-04-15 19:18:15,246 - INFO - F1 Score: 0.0000
+2025-04-15 19:18:15,246 - INFO - 
+Detection Statistics:
+2025-04-15 19:18:15,246 - INFO - True Positives: 0
+2025-04-15 19:18:15,246 - INFO - False Positives: 0
+2025-04-15 19:18:15,246 - INFO - False Negatives: 0
+2025-04-15 19:18:15,246 - INFO - Total Ground Truth Positives: 0
+2025-04-15 19:18:15,262 - INFO - 
+Detailed results saved to /home/htic/Downloads/results/inference_results.txt
+htic@htic-desktop:~/Downloads$ python3 inference.py
+2025-04-15 19:20:22,939 - INFO - Initializing TensorRT engine from model_fp16.engine...
+[04/15/2025-19:20:22] [TRT] [W] Using an engine plan file across different models of devices is not recommended and is likely to affect performance or even cause errors.
+/home/htic/Downloads/inference.py:45: DeprecationWarning: Use get_tensor_shape instead.
+  binding_shape = self.engine.get_binding_shape(binding)
+/home/htic/Downloads/inference.py:48: DeprecationWarning: Use set_input_shape instead.
+  self.context.set_binding_shape(binding, binding_shape)
+/home/htic/Downloads/inference.py:51: DeprecationWarning: Use get_tensor_dtype instead.
+  dtype = trt.nptype(self.engine.get_binding_dtype(binding))
+/home/htic/Downloads/inference.py:67: DeprecationWarning: Use get_tensor_name instead.
+  'name': self.engine.get_binding_name(binding)
+/home/htic/Downloads/inference.py:70: DeprecationWarning: Use get_tensor_mode instead.
+  if self.engine.binding_is_input(binding):
+2025-04-15 19:20:23,024 - INFO - Allocated buffer for input: shape=(1, 2, 128, 1024), size=262144, dtype=<class 'numpy.float32'>
+[04/15/2025-19:20:23] [TRT] [E] 3: [executionContext.cpp::setBindingDimensions::1532] Error Code 3: API Usage Error (Parameter check failed at: runtime/api/executionContext.cpp::setBindingDimensions::1532, condition: mEngine.bindingIsInput(bindingIndex)
+)
+2025-04-15 19:20:23,024 - INFO - Allocated buffer for confidence: shape=(1, 1), size=1, dtype=<class 'numpy.float32'>
+[04/15/2025-19:20:23] [TRT] [E] 3: [executionContext.cpp::setBindingDimensions::1532] Error Code 3: API Usage Error (Parameter check failed at: runtime/api/executionContext.cpp::setBindingDimensions::1532, condition: mEngine.bindingIsInput(bindingIndex)
+)
+2025-04-15 19:20:23,025 - INFO - Allocated buffer for position: shape=(1, 2), size=2, dtype=<class 'numpy.float32'>
+2025-04-15 19:20:23,067 - INFO - Engine warmup completed
+2025-04-15 19:20:23,083 - INFO - Running inference on 1855 test images...
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1855/1855 [00:49<00:00, 37.10it/s]
+2025-04-15 19:21:13,090 - INFO - 
+Performance Metrics:
+2025-04-15 19:21:13,091 - INFO - Average Inference Time: 11.11ms
+2025-04-15 19:21:13,091 - INFO - Average IoU: 0.0000
+2025-04-15 19:21:13,091 - INFO - Precision: 0.0000
+2025-04-15 19:21:13,091 - INFO - Recall: 0.0000
+2025-04-15 19:21:13,091 - INFO - F1 Score: 0.0000
+2025-04-15 19:21:13,091 - INFO - 
+Detection Statistics:
+2025-04-15 19:21:13,091 - INFO - True Positives: 0
+2025-04-15 19:21:13,091 - INFO - False Positives: 0
+2025-04-15 19:21:13,091 - INFO - False Negatives: 0
+2025-04-15 19:21:13,091 - INFO - Total Ground Truth Positives: 0
+2025-04-15 19:21:13,111 - INFO - 
+Detailed results saved to /home/htic/Downloads/results/inference_results.txt
+htic@htic-desktop:~/Downloads$ 
+
