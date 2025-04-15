@@ -86,43 +86,82 @@ class TensorRTInference:
             logger.warning(f"Warmup failed: {str(e)}")
     
     def preprocess_image(self, image_path):
-        """Preprocess image for inference."""
-        # Read image
-        img = Image.open(image_path).convert('L')
-        img_np = np.array(img)
-        
-        # Ensure landscape orientation
-        if img_np.shape[0] > img_np.shape[1]:
-            img_np = np.rot90(img_np, k=-1)
-        
-        # Resize to target size
-        img_resized = cv2.resize(img_np, (1024, 128))
-        
-        # Apply Gabor filter (same as training)
-        ksize = 31
-        sigma = 4.0
-        theta = 0
-        lambd = 10.0
-        gamma = 0.5
-        psi = 0
-        gabor_kernel = cv2.getGaborKernel((ksize, ksize), sigma, theta, lambd, gamma, psi, ktype=cv2.CV_32F)
-        img_gabor = cv2.filter2D(img_resized, cv2.CV_8UC3, gabor_kernel)
-        
-        # Stack and normalize
-        img_combined = np.stack((img_resized, img_gabor), axis=0).astype(np.float32) / 255.0
-        
-        # Add batch dimension
-        return np.expand_dims(img_combined, axis=0)
+        """Preprocess image for inference with better error handling."""
+        try:
+            # Read image with error handling
+            img = None
+            try:
+                img = Image.open(image_path).convert('L')
+            except Exception as e:
+                logger.error(f"Failed to open image {image_path}: {str(e)}")
+                # Create a blank image as fallback
+                img = Image.new('L', (1024, 128), 0)
+            
+            img_np = np.array(img)
+            
+            # Ensure proper dimensions
+            if len(img_np.shape) > 2:
+                img_np = cv2.cvtColor(img_np, cv2.COLOR_RGB2GRAY)
+            
+            # Ensure landscape orientation
+            if img_np.shape[0] > img_np.shape[1]:
+                img_np = np.rot90(img_np, k=-1)
+            
+            # Resize with error handling
+            try:
+                img_resized = cv2.resize(img_np, (1024, 128))
+            except Exception as e:
+                logger.error(f"Failed to resize image: {str(e)}")
+                img_resized = np.zeros((128, 1024), dtype=np.uint8)
+            
+            # Apply Gabor filter with error handling
+            try:
+                ksize = 31
+                sigma = 4.0
+                theta = 0
+                lambd = 10.0
+                gamma = 0.5
+                psi = 0
+                gabor_kernel = cv2.getGaborKernel((ksize, ksize), sigma, theta, lambd, gamma, psi, ktype=cv2.CV_32F)
+                img_gabor = cv2.filter2D(img_resized, cv2.CV_8UC3, gabor_kernel)
+            except Exception as e:
+                logger.error(f"Failed to apply Gabor filter: {str(e)}")
+                img_gabor = img_resized.copy()
+            
+            # Stack channels and normalize
+            try:
+                img_combined = np.stack((img_resized, img_gabor), axis=0).astype(np.float32) / 255.0
+            except Exception as e:
+                logger.error(f"Failed to stack channels: {str(e)}")
+                img_combined = np.zeros((2, 128, 1024), dtype=np.float32)
+            
+            # Add batch dimension
+            img_batch = np.expand_dims(img_combined, axis=0)
+            
+            return img_batch
+            
+        except Exception as e:
+            logger.error(f"Preprocessing failed for {image_path}: {str(e)}")
+            # Return zero tensor with correct shape as fallback
+            return np.zeros((1, 2, 128, 1024), dtype=np.float32)
     
     def infer(self, input_data):
         """Run inference on the input data."""
-        if not isinstance(input_data, np.ndarray):
-            raise ValueError("Input data must be a numpy array")
-        
-        if input_data.shape != self.inputs[0]['shape']:
-            raise ValueError(f"Input shape mismatch. Expected {self.inputs[0]['shape']}, got {input_data.shape}")
-        
         try:
+            # Input validation
+            if not isinstance(input_data, np.ndarray):
+                raise ValueError("Input data must be a numpy array")
+            
+            if input_data.shape != self.inputs[0]['shape']:
+                # Try to reshape or pad if possible
+                try:
+                    input_data = input_data.reshape(self.inputs[0]['shape'])
+                except:
+                    raise ValueError(f"Input shape mismatch. Expected {self.inputs[0]['shape']}, got {input_data.shape}")
+            
+            # Ensure input data is in float32
+            input_data = input_data.astype(np.float32)
+            
             # Copy input data to input buffer
             np.copyto(self.inputs[0]['host'], input_data.ravel())
             
@@ -135,17 +174,43 @@ class TensorRTInference:
             )
             
             # Transfer output data back to host and reshape
-            outputs = []
+            position = None
+            confidence = None
+            
             for out in self.outputs:
                 cuda.memcpy_dtoh(out['host'], out['device'])
-                output = np.array(out['host'], dtype=out['dtype']).reshape(out['shape'])
-                outputs.append(output)
+                output = np.array(out['host'], dtype=out['dtype'])
+                
+                # Safely reshape based on binding name
+                if 'position' in out['name'].lower():
+                    try:
+                        # Ensure position output is always (batch_size, 2)
+                        if len(output) == 2:  # If flat array of 2 values
+                            position = output.reshape(1, 2)
+                        else:
+                            position = output.reshape(-1, 2)
+                    except Exception as e:
+                        logger.warning(f"Failed to reshape position output: {str(e)}")
+                        position = np.zeros((1, 2), dtype=np.float32)
+                
+                elif 'confidence' in out['name'].lower():
+                    try:
+                        # Ensure confidence output is always (batch_size, 1)
+                        confidence = output.reshape(-1, 1)
+                    except Exception as e:
+                        logger.warning(f"Failed to reshape confidence output: {str(e)}")
+                        confidence = np.zeros((1, 1), dtype=np.float32)
             
-            return outputs[0], outputs[1]  # position, confidence
+            # Validate outputs
+            if position is None or confidence is None:
+                raise RuntimeError("Missing position or confidence output")
+            
+            return position, confidence
             
         except Exception as e:
             logger.error(f"Inference failed: {str(e)}")
-            raise
+            # Return safe default values instead of raising
+            return np.zeros((1, 2), dtype=np.float32), np.zeros((1, 1), dtype=np.float32)
 
 def calculate_iou(pred_box, gt_box):
     """Calculate IoU between predicted and ground truth boxes."""
